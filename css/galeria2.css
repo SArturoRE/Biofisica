@@ -63,3 +63,12 @@ body{
     float: right;
 }
 /*modificaciones generales*/
+.bienvenido
+{
+    text-align: center;
+    font-family: courier;
+}
+.prin
+{
+    background-color: aqua;
+}
