@@ -39,6 +39,11 @@
         .sliderIndex .img{
             width: 100%;
         }
+        .bienvenido{
+            /* display: flex; */
+            margin-top: 20vh;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -57,7 +62,7 @@
                     <li class="nav-item active">
                         <!--boton de Inicio Sesion-->
                         <a class="nav-link" id="btn-InicioSesion" href="#" data-toggle="modal"
-                            data-target="#iniciarSesion">Iniciar Sesion<span class="sr-only">(current)</span></a>
+                            data-target="#iniciarSesion">Iniciar Sesion</a>
                     </li>
                     <li class="nav-item">
                         <!--boton de Registrarse-->
@@ -71,7 +76,7 @@
 
     <!-- Modal de Registro-->
     <div class="modal fade" id="Registro" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Registro</h5>
@@ -152,7 +157,7 @@
 
     <!-- Modal de Inicio Sesion-->
     <div class="modal fade" id="iniciarSesion" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Iniciar Sesion</h5>
@@ -202,15 +207,24 @@
     </div>
     <!--termina slider-->
 
-    <div class="bienvenido">
-        <p>
-            <h1>Bienvenidos</h1>
-            Esta es una pagina para apoyar la materia de biofisica, de la facultad de ciencias quemicas impartida
-            por la profesora Esther Lara. <br>
-            En esta pagina podras responder examenes. Podras consultar material de apoyo facilitado por la
-            profesora, <br>asi como generar un examenes
-            de diagnostico con los cuales podras estudiar.
-        </p>
+    <div class="bienvenido container">
+        
+        <div class="row">
+            <div class="col">
+                <h1>Bienvenidos</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p>
+                    Esta es una pagina para apoyar la materia de biofisica, de la facultad de ciencias quemicas impartida
+                    por la profesora Esther Lara. <br>
+                    En esta pagina podras responder examenes. Podras consultar material de apoyo facilitado por la
+                    profesora, <br>asi como generar un examenes
+                    de diagnostico con los cuales podras estudiar.
+                </p>
+            </div>
+        </div>
     </div>
 
     <script src="js/slick.js"></script>
