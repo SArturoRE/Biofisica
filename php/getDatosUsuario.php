@@ -1,9 +1,9 @@
 <?php
 
 require "conexionDB.php";
-$conexion = getConexion();
+$conexion = getConexionDB();
 
-$datosUsuario = [];
+$datosUsuario = json_decode(file_get_contents("php://input"), true);
 
 if ($conexion->connect_errno) {
 
@@ -15,3 +15,5 @@ if ($conexion->connect_errno) {
 }
 
 $conexion->close();
+
+echo json_encode($datosUsuario);

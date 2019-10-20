@@ -31,21 +31,28 @@ window.addEventListener("load", function () {
     });
 });
 
-function getInfoUsuario(e) {
-    e.preventDefault();
+function getInfoUsuario() {
     let request = new XMLHttpRequest();
 
+    var values = document.querySelectorAll("#iniciarSesion form input:not([type='radio'])");
+
+    let datos = {};
+    values.forEach(function(e){
+        datos[e.name] = e.value;
+    });
+    
     request.open("post", "php/getDatosUsuario.php");
-    request.send(JSON.stringify());
+    request.send(JSON.stringify(datos));
 
     request.onload = function () {
-        if (xhr.status != 200) {
-            alert(`Error ${xhr.status}: ${xhr.statusText}`);
+        $("#iniciarSesion").modal("hide");
+        if (request.status != 200) {
+            alert(`Error ${request.status}: ${request.statusText}`);
         } else {
-            console.log(xhr.response);
+            console.log(request.response);
         }
     };
-
+    
     request.onerror = function () {
         alert("error inesperado :v sorry bro :,v");
     };

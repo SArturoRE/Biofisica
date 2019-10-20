@@ -6,8 +6,7 @@ function getConexionDB(){
     
     if (!$conexion) {
         echo "error al conecatar la base de datos";
-    } else {
-        echo "conexion exitosa";
+        exit;
     }
 
     return $conexion;
