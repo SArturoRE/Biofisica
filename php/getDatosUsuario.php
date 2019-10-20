@@ -30,7 +30,7 @@ if ( isset($datosUsuario["Matricula"]) ) {
 $result = $conexion->query($query);
 
 $cad = $result->fetch_assoc();
-echo json_encode($cad[$key]);
+echo json_encode(json_decode($cad[$key]));
 
 $result->free();
 $conexion->close();

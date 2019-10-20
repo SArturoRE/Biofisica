@@ -50,7 +50,7 @@ if ( isset($datosUsuario["Matricula"]) ) {
 $result = $conexion->query($query);
 $info = $result->fetch_assoc();
 
-echo json_encode($info[$key]);
+echo json_encode(json_decode($info[$key]));
 
 $result->free();
 $conexion->close();

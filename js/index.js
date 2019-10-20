@@ -1,4 +1,20 @@
 window.addEventListener("load", function () {
+    muestra_oculta_campos_formularios();
+    verifica_Sesion();
+});
+
+function verifica_Sesion(){
+    let idSesion = sessionStorage.getItem("idSession");
+    let navbar_nav = document.querySelector(".navbar-nav"); 
+
+    if (idSesion != null){
+        navbar_nav.innerHTML = "<li class='nav-item'><!--configuracion del perfil--><a class='nav-link' href='#'>Configuracion</a></li><li class='nav-item'><!--cierra sesion usuario--><a class='nav-link' onclick='cerrarSesionUsuario()'>Cerrar Sesion</a></li>";
+    } else{
+        navbar_nav.innerHTML = "<li class='nav-item active'><!--boton de Inicio Sesion--><a class='nav-link' id='btn-InicioSesion' href='#' data-toggle='modal'data-target='#iniciarSesion'>Iniciar Sesion</a></li><li class='nav-item'><!--boton de Registrarse--><a class='nav-link' id='btn-Registro' href='#' data-toggle='modal'data-target='#Registro'>Registrarse</a></li>";
+    }
+}
+
+function muestra_oculta_campos_formularios(){
     let tipoUsuario_radio_iniciaSesion = document.querySelectorAll("input[name='tipoUsuario_radio_iniciaSesion']");
     let tipoUsuario_radio_Registro = document.querySelectorAll("input[name='tipoUsuario_radio_Registro']");
     tipoUsuario_radio_iniciaSesion.forEach(function (radio) {
@@ -29,7 +45,7 @@ window.addEventListener("load", function () {
             }
         });
     });
-});
+}
 
 function getInfoUsuario() {
     let request = new XMLHttpRequest();
@@ -45,11 +61,15 @@ function getInfoUsuario() {
     request.send(JSON.stringify(datos));
 
     request.onload = function () {
-        $("#iniciarSesion").modal("hide");
         if (request.status != 200) {
             alert(`Error ${request.status}: ${request.statusText}`);
         } else {
-            console.log(JSON.parse(request.response));
+            let infoResponse = JSON.parse(request.response);
+            
+            if (infoResponse["error"] == undefined) {
+                $("#iniciarSesion").modal("hide");
+                agregaSesionUsuario(datos);
+            }
         }
     };
     
@@ -72,15 +92,32 @@ function addInfoUsuario() {
     request.send(JSON.stringify(datos));
 
     request.onload = function(){
-        $("#Registro").modal("hide");
         if(request.status != 200) {
             alert(`Error ${request.status}: ${request.statusText}`);
         } else {
-            console.log(JSON.parse(request.response));
+            let infoResponse = JSON.parse(request.response);
+            
+            if(infoResponse["error"] == undefined){
+
+                agregaSesionUsuario(datos);
+                $("#Registro").modal("hide");
+            }
         }
     };
 
     request.onerror = function(){
         alert("error inesperado al guardar la informacion del usuario :v sorry bro :,v");
     };
+}
+
+function agregaSesionUsuario(datos){
+    let idSesion = datos["Matricula"] != undefined ? datos["Matricula"] : datos["numTrabajador"];
+    sessionStorage.setItem("idSesion", idSesion);
+    let navbar_nav = document.querySelector(".navbar-nav");
+    navbar_nav.innerHTML = "<li class='nav-item'><!--configuracion del perfil--><a class='nav-link' href='#'>Configuracion</a></li><li class='nav-item'><!--cerrar sesion del usuario--><a class='nav-link' onclick='cerrarSesionUsuario()'>Cerrar Sesion</a></li>";
+}
+
+function cerrarSesionUsuario(){
+    sessionStorage.removeItem("idSesion");
+    location.href = "/Biofisica/";
 }
