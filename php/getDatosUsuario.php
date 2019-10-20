@@ -14,6 +14,23 @@ if ($conexion->connect_errno) {
     exit;
 }
 
-$conexion->close();
+if ( isset($datosUsuario["Matricula"]) ) {
 
-echo json_encode($datosUsuario);
+    $matricula = $datosUsuario["Matricula"];
+    $id = $matricula;
+    $key = "alumnoRegistrado($matricula)";
+    $query = "select $key";
+} else {
+    
+    $numTrabajador = $datosUsuario["numTrabajador"];
+    $key = "profesorRegistrado($numTrabajador)";
+    $query = "select $key";
+}
+
+$result = $conexion->query($query);
+
+$cad = $result->fetch_assoc();
+echo json_encode($cad[$key]);
+
+$result->free();
+$conexion->close();

@@ -49,11 +49,38 @@ function getInfoUsuario() {
         if (request.status != 200) {
             alert(`Error ${request.status}: ${request.statusText}`);
         } else {
-            console.log(request.response);
+            console.log(JSON.parse(request.response));
         }
     };
     
     request.onerror = function () {
-        alert("error inesperado :v sorry bro :,v");
+        alert("error inesperado al obtener la informacion del usuario :v sorry bro :,v");
+    };
+}
+
+function addInfoUsuario() {
+    let values = document.querySelectorAll("#Registro form input:not([type='radio'])");
+    let datos = {};
+
+    values.forEach(function(e){
+        datos[e.name] = e.value;
+    });
+
+    let request = new XMLHttpRequest();
+
+    request.open("post", "php/addInfoUsuario.php");
+    request.send(JSON.stringify(datos));
+
+    request.onload = function(){
+        $("#Registro").modal("hide");
+        if(request.status != 200) {
+            alert(`Error ${request.status}: ${request.statusText}`);
+        } else {
+            console.log(JSON.parse(request.response));
+        }
+    };
+
+    request.onerror = function(){
+        alert("error inesperado al guardar la informacion del usuario :v sorry bro :,v");
     };
 }
