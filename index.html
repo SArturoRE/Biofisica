@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Biofisica</title>
 
+    <!-- indexJS -->
+    <script src="js/index.js"></script>
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -32,14 +34,17 @@
             display: flex;
             justify-content: flex-end;
         }
-        .sliderIndex{
+
+        .sliderIndex {
             width: 80vw;
             margin: 10vw;
         }
-        .sliderIndex .img{
+
+        .sliderIndex .img {
             width: 100%;
         }
-        .bienvenido{
+
+        .bienvenido {
             /* display: flex; */
             margin-top: 20vh;
             text-align: center;
@@ -87,15 +92,9 @@
                 <div class="modal-body">
                     <form action="" method="POST">
                         <div class="container">
-                            <div class="row">
-                                <div class="col-5">
-                                    <label for="">Matricula</label><br>
-                                </div>
-                                <div class="col-7">
-                                    <input type="text" name="Matricula"><br>
-                                </div>
+                            <div class="row" id="tipoUsuario_div_Registro">
                             </div>
-                            <div class="row">
+                            <div class="row elementoOculto_Registro" style="display: none;">
                                 <div class="col-5">
                                     <label for="">Nombre</label><br>
                                 </div>
@@ -103,7 +102,7 @@
                                     <input type="text" name="Nombre"><br>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row elementoOculto_Registro" style="display: none;">
                                 <div class="col-5">
                                     <label for="">Apellido Paterno</label><br>
                                 </div>
@@ -111,7 +110,7 @@
                                     <input type="text" name="ApellidoP"><br>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row elementoOculto_Registro" style="display: none;">
                                 <div class="col-5">
                                     <label for="">Apellido Materno</label><br>
                                 </div>
@@ -119,7 +118,7 @@
                                     <input type="text" name="ApellidoM"><br>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row elementoOculto_Registro" style="display: none;">
                                 <div class="col-5">
                                     <label for="">Contraseña</label><br>
                                 </div>
@@ -127,7 +126,7 @@
                                     <input type="password" name="Pass"><br>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row elementoOculto_Registro" style="display: none;">
                                 <div class="col-5">
                                     <label for="">Confirmar Contraseña</label><br>
                                 </div>
@@ -135,7 +134,7 @@
                                     <input type="password" name="PassConfirm"><br>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row elementoOculto_Registro" style="display: none;">
                                 <div class="col-5">
                                     <label for="">Grupo</label><br>
                                 </div>
@@ -143,10 +142,35 @@
                                     <input type="text" name="Grupo"><br>
                                 </div>
                             </div>
+                            <div class="row" style="display: flex; justify-content: center;">
+                                <p>Soy...</p>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="">Alumno</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="radio" value="alumno" name="tipoUsuario_radio_Registro">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="">Profesor</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="radio" value="profesor" name="tipoUsuario_radio_Registro">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Registrarse</button>
+                            <button type="submit" class="btn btn-primary elementoOculto_Registro" style="display: none;">Registrarse</button>
                         </div>
                     </form>
                 </div>
@@ -166,28 +190,47 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="POST">
+                    <form action="" method="POST" onsubmit="event.preventDefault(); getInfoUsuario();">
                         <div class="container">
-                            <div class="row">
-                                <div class="col-5">
-                                    <label for="">Matricula</label><br>
+                                <div class="row" id="tipoUsuario_div_iniciaSesion">
                                 </div>
-                                <div class="col-7">
-                                    <input type="text" name="Matricula"><br>
-                                </div>
-                            </div>
-                            <div class="row">
+                            <div class="row elementoOculto_IniciaSesion" style="display: none;">
                                 <div class="col-5">
                                     <label for="">Contraseña</label><br>
                                 </div>
                                 <div class="col-7">
-                                    <input type="password" name="Pass"><br>
+                                    <input type="password" name="Pass" required><br>
+                                </div>
+                            </div>
+                            <div class="row" style="display: flex; justify-content: center;">
+                                <p>Soy...</p>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="">Alumno</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="radio" value="alumno" name="tipoUsuario_radio_iniciaSesion">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="">Profesor</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="radio" value="profesor" name="tipoUsuario_radio_iniciaSesion">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
+                            <button type="submit" class="btn btn-primary elementoOculto_IniciaSesion">Iniciar Sesion</button>
                         </div>
                     </form>
                 </div>
@@ -208,7 +251,7 @@
     <!--termina slider-->
 
     <div class="bienvenido container">
-        
+
         <div class="row">
             <div class="col">
                 <h1>Bienvenidos</h1>
@@ -217,7 +260,8 @@
         <div class="row">
             <div class="col">
                 <p>
-                    Esta es una pagina para apoyar la materia de biofisica, de la facultad de ciencias quemicas impartida
+                    Esta es una pagina para apoyar la materia de biofisica, de la facultad de ciencias quemicas
+                    impartida
                     por la profesora Esther Lara. <br>
                     En esta pagina podras responder examenes. Podras consultar material de apoyo facilitado por la
                     profesora, <br>asi como generar un examenes
