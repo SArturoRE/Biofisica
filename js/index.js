@@ -16,9 +16,9 @@ function set_Navbar_porSesion() {
             <li class='nav-item dropdown'>
                 <a class='nav-link dropdown-toggle' href='#' role='button' data-toggle='dropdown'>Material Apoyo</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="#">Visto en Clase</a>
+                    <a class="dropdown-item" href="#">Material Externo</a>
+                    <a class="dropdown-item" href="#">Preguntas</a>
                 </div>
             </li>
         `;
