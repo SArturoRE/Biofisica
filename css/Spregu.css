@@ -21,7 +21,7 @@
     display: flex; 
     justify-content: flex-end;
     
-    border-top-style: none;
+    border-top: solid .5px;
     border-right: solid .5px;
     border-left: solid .5px;
     /*display: flex;
