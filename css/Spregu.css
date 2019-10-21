@@ -1,4 +1,13 @@
-button
+.body_Pregunta
 {
-    /* background-color: rgb(123, 136, 136); */
+    display: inline-block;
+    text-align: center;
+    border: solid 1px;
+}
+.eliminar_pregunta
+{
+    display: flex; 
+    justify-content: flex-end;
+    /*display: flex;
+    text-align: right;*/
 }
