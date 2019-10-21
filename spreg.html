@@ -7,20 +7,23 @@
     <title>Subir Pregunta</title>
 </head>
 <body>
-    <form action="pregunta">
-        Pregunta: <input type="text" name="Nombre" value=""><br><br>
-        Respuestas: <br><br>
-        a)<input type="text" name="Nombre" value=""> b)<input type="text" name="Nombre" value=""> <br><br>
-        c)<input type="text" name="Nombre" value=""> d)<input type="text" name="Nombre" value=""> <br><br>
 
-        Respuesta Correcta
-        <select class="Mes" name="">
-            <option value="">-</option>
-            <option value="">A</option>
-            <option value="">B</option>
-            <option value="">C</option>
-            <option value="">D</option>
-        </select>
-    </form>
+    <div>
+        <form action="pregunta">
+            Pregunta: <input type="text" name="Nombre" value=""><br><br>
+            Respuestas: <br><br>
+            a)<input type="text" name="Nombre" value=""> b)<input type="text" name="Nombre" value=""> <br><br>
+            c)<input type="text" name="Nombre" value=""> d)<input type="text" name="Nombre" value=""> <br><br>
+
+            Respuesta Correcta
+            <select class="Mes" name="">
+                <option value="" disabled selected hidden>Seleccione una opcion</option>
+                <option value="">A</option>
+                <option value="">B</option>
+                <option value="">C</option>
+                <option value="">D</option>
+            </select>
+        </form>
+    </div>
 </body>
 </html>
