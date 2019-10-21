@@ -28,18 +28,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <style>
-        .body_formulario_preguntas{
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-    </style>
+    
 </head>
 
 <body>
-<!--Muestra la cabecera principal-->
-        <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+    <!--Muestra la cabecera principal-->
+            <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
                 <div class="container">
                     <a class="navbar-brand" href="#">
                         <img src="img/logo_biofisica.png" width="100" alt="logo_biofisica">
@@ -53,15 +47,17 @@
                         </ul>
                     </div>
                 </div>
-            </nav>
-<!--Empieza el formulario para subir las preguntas-->
-    <div class="plantilla_pregunta" hidden>
+                </nav>
+    <!--Empieza el formulario para subir las preguntas-->
+
+
+        <div class="plantilla_pregunta" hidden>
         <div class="eliminar_pregunta">
             <span onclick="eliminarPregunta(this)">&times;</span>
         </div>
         <div class="body_Pregunta">
             <label for="">Pregunta:</label>
-            <textarea name="" id="" cols="35" rows="5" placeholder="Escriba aqui su pregunta"></textarea><br>
+            <textarea name="" id="" cols="30" rows="5" placeholder="Escriba aqui su pregunta"></textarea><br>
             <label for="">Respuestas:</label><br>
             
             <label for="">a)</label>
@@ -76,7 +72,7 @@
             <label for="">d)</label>
             <input type="text" name="Nombre" value=""><br>
             
-            <label for="">Respuesta Correcta</label>
+            <label for="">Respuesta Correcta</label><br>
             <select class="" name="">
                 <option value="" disabled selected hidden>seleciona una opcion..</option>
                 <option value="a">A</option>
@@ -87,20 +83,21 @@
             
         </div>
         <div class="info_Adicional">
-            <label for="">Unidad</label>
+            <label for="" >Unidad</label><br>
             <input type="text" placeholder="Escriba la unidad a la que pertenece esta pregunta" required onkeyup="this.value = this.value.toUpperCase();">
         </div>
-    </div>
+        </div>
     
-    <form class="formulario_preguntas" action="pregunta">
+        <form class="formulario_preguntas" action="pregunta">
         <div class="body_formulario_preguntas">
 
         </div>
         <div class="footer">
-            <button type="button" class="btn btn-success" type="submit">finalizar</button>
-            <button type="button" class="btn btn-secondary" onclick="agregaPregunta()">Agregar Pregunta</button>
+            <button type="button" class="btn btn-outline-dark" type="submit">finalizar</button>
+            <button type="button" class="btn btn-outline-dark" onclick="agregaPregunta()">Agregar Pregunta</button>
         </div>
-    </form>
+        </form>
+
 </body>
 
 </html>
