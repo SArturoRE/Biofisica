@@ -4,6 +4,8 @@
     text-align: center;
     border: solid 1px;
 }
+/*Tratamos de alinar la x*/
+
 .eliminar_pregunta
 {
     display: flex; 
