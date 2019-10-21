@@ -10,26 +10,24 @@
 
 <body>
 
-<script type="">
-
-    <form action="pregunta">
+    <div class="plantilla_Pregunta">
         <label for="">Pregunta:</label>
-
+    
         <input type="text" name="Nombre" value=""><br>
         <label for="">Respuestas:</label><br>
-
+    
         <label for="">a)</label>
         <input type="text" name="Nombre" value=""><br>
-
+    
         <label for="">b)</label>
         <input type="text" name="Nombre" value=""><br>
-
+    
         <label for="">c)</label>
         <input type="text" name="Nombre" value=""><br>
-
+    
         <label for="">d)</label>
         <input type="text" name="Nombre" value=""><br>
-
+    
         <label for="">Respuesta Correcta</label>
         <select class="" name="">
             <option value="" disabled selected hidden>seleciona una opcion..</option>
@@ -38,18 +36,11 @@
             <option value="c">C</option>
             <option value="d">D</option>
         </select>
-
-        <label for="">Pregunta para examen</label>
-        <select class="" name="">
-            <option value="" disabled selected hidden>seleciona una opcion..</option><br>
-            <option value="a">generado aleatoriamente</option>
-            <option value="b">examen definido</option>
-        </select><br>
-        
+    </div>
+    
+    <form class="formulario_preguntas" action="pregunta">
     </form>
 
-</script>
-<button onclick="">Agregar Pregunta</button>
 </body>
 
 </html>
