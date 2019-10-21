@@ -81,13 +81,16 @@
         </div>
         <div class="info_Adicional">
             <label for="">Unidad</label>
-            <input type="text" placeholder="Escriba la unidad a la que pertenece esta pregunta" required autocapitalize>
+            <input type="text" placeholder="Escriba la unidad a la que pertenece esta pregunta" required onkeyup="this.value = this.value.toUpperCase();">
         </div>
     </div>
     
     <form class="formulario_preguntas" action="pregunta">
+        <div class="footer">
+            <button type="button" class="btn btn-success" type="submit">finalizar</button>
+            <button type="button" class="btn btn-secondary" onclick="agregaPregunta()">Agregar Pregunta</button>
+        </div>
     </form>
-    <button onclick="agregaPregunta()">Agregar Pregunta</button>
 </body>
 
 </html>

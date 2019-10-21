@@ -4,7 +4,7 @@ function agregaPregunta(){
     let div_plantilla_pregunta = document.createElement("div");
     div_plantilla_pregunta.innerHTML = plantilla_pregunta.innerHTML;
 
-    formulario_preguntas.appendChild(div_plantilla_pregunta);
+    formulario_preguntas.insertAdjacentElement("afterbegin", div_plantilla_pregunta)
 }
 
 function eliminarPregunta(span){
