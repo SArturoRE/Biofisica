@@ -1,15 +1,36 @@
+.body_formulario_preguntas
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+/*formulario de preguntas*/
 .body_Pregunta
 {
     display: inline-block;
     text-align: center;
-    border: solid 1px;
+    
+    /*modificamos los bordes*/
+    border-top: none;
+    border-right: solid .5px;
+    border-left: solid .5px;
 }
 /*Tratamos de alinar la x*/
-
 .eliminar_pregunta
 {
     display: flex; 
     justify-content: flex-end;
+    
+    border-top-style: none;
+    border-right: solid .5px;
+    border-left: solid .5px;
     /*display: flex;
     text-align: right;*/
+}
+/*informacion adicional*/
+.info_Adicional
+{
+    border-right: solid .5px;
+    border-left: solid .5px;
+    border-bottom: solid .5px;
 }
