@@ -1,14 +1,21 @@
 window.addEventListener("load", function () {
     muestra_oculta_campos_formularios();
-    verifica_Sesion();
+    set_Navbar_porSesion();
 });
 
-function verifica_Sesion(){
-    let idSesion = sessionStorage.getItem("idSession");
+function set_Navbar_porSesion(){
+    let idSesion = sessionStorage.getItem("idSesion");
+    let tipoSesion = sessionStorage.getItem("tipoSesion");
     let navbar_nav = document.querySelector(".navbar-nav"); 
 
+    console.log(idSesion);
+
     if (idSesion != null){
-        navbar_nav.innerHTML = "<li class='nav-item'><!--configuracion del perfil--><a class='nav-link' href='#'>Configuracion</a></li><li class='nav-item'><!--cierra sesion usuario--><a class='nav-link' onclick='cerrarSesionUsuario()'>Cerrar Sesion</a></li>";
+        navbar_nav.innerHTML = "<li class='nav-item'><a class='nav-link' href='#'>Material Apoyo</a></li>";
+        if (tipoSesion == "Alumno"){
+            navbar_nav.innerHTML = navbar_nav.innerHTML + "<li class='nav-item'><a class='nav-link' href='#'>Examenes</a></li>";
+        }
+        navbar_nav.innerHTML = navbar_nav.innerHTML + "<li class='nav-item'><!--configuracion del perfil--><a class='nav-link' href='#'>Configuracion</a></li><li class='nav-item'><!--cierra sesion usuario--><a class='nav-link' onclick='cerrarSesionUsuario()'>Cerrar Sesion</a></li>";
     } else{
         navbar_nav.innerHTML = "<li class='nav-item active'><!--boton de Inicio Sesion--><a class='nav-link' id='btn-InicioSesion' href='#' data-toggle='modal'data-target='#iniciarSesion'>Iniciar Sesion</a></li><li class='nav-item'><!--boton de Registrarse--><a class='nav-link' id='btn-Registro' href='#' data-toggle='modal'data-target='#Registro'>Registrarse</a></li>";
     }
@@ -113,8 +120,12 @@ function addInfoUsuario() {
 function agregaSesionUsuario(datos){
     let idSesion = datos["Matricula"] != undefined ? datos["Matricula"] : datos["numTrabajador"];
     sessionStorage.setItem("idSesion", idSesion);
-    let navbar_nav = document.querySelector(".navbar-nav");
-    navbar_nav.innerHTML = "<li class='nav-item'><!--configuracion del perfil--><a class='nav-link' href='#'>Configuracion</a></li><li class='nav-item'><!--cerrar sesion del usuario--><a class='nav-link' onclick='cerrarSesionUsuario()'>Cerrar Sesion</a></li>";
+    if (datos["Matricula"] != undefined) {
+        sessionStorage.setItem("tipoSesion", "Alumno");
+    } else {
+        sessionStorage.setItem("tipoSesion", "Profesor");
+    }
+    set_Navbar_porSesion();
 }
 
 function cerrarSesionUsuario(){
