@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Subir Pregunta</title>
-    
+
     <!--Eliminar y agregar preguntas-->
     <script src="js/nueva_pregunta.js"></script>
-    
+
     <!--Llamado a mi css-->
     <link rel="stylesheet" href="css/Spregu.css">
-    
+
     <!-- indexJS -->
     <script src="js/index.js"></script>
-    
+
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -33,50 +33,50 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    
+
 </head>
 
 <body>
     <!--Muestra la cabecera principal-->
-            <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
-                <div class="container">
-                    <a class="navbar-brand" href="#">
-                        <img src="img/logo_biofisica.png" width="100" alt="logo_biofisica">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-11"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbar-list-11">
-                        <ul class="navbar-nav ml-auto ">
-                        </ul>
-                    </div>
-                </div>
-                </nav>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="img/logo_biofisica.png" width="100" alt="logo_biofisica">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-11"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-list-11">
+                <ul class="navbar-nav ml-auto ">
+                </ul>
+            </div>
+        </div>
+    </nav>
     <!--Empieza el formulario para subir las preguntas-->
 
 
-        <div class="plantilla_pregunta" hidden>
+    <div class="plantilla_pregunta" hidden>
         <div class="eliminar_pregunta">
-            <span  onclick="eliminarPregunta(this)">&times;</span>
+            <span onclick="eliminarPregunta(this)">&times;</span>
         </div>
         <div class="body_Pregunta">
             <label for="">Pregunta:</label>
             <textarea name="" id="" cols="30" rows="5" placeholder="Escriba aqui su pregunta"></textarea><br>
             <label for="">Respuestas:</label><br>
-            
+
             <label for="">a)</label>
             <input type="text" name="Nombre" value=""><br>
-            
+
             <label for="">b)</label>
             <input type="text" name="Nombre" value=""><br>
-            
+
             <label for="">c)</label>
             <input type="text" name="Nombre" value=""><br>
-            
+
             <label for="">d)</label>
             <input type="text" name="Nombre" value=""><br>
-            
+
             <label for="">Respuesta Correcta</label><br>
             <select class="" name="">
                 <option value="" disabled selected hidden>seleciona una opcion..</option>
@@ -85,15 +85,16 @@
                 <option value="c">C</option>
                 <option value="d">D</option>
             </select>
-            
+
         </div>
         <div class="info_Adicional">
-            <label for="" >Unidad</label><br>
-            <input type="text" placeholder="Escriba la unidad a la que pertenece esta pregunta" required onkeyup="this.value = this.value.toUpperCase();">
+            <label for="">Unidad</label><br>
+            <input type="text" placeholder="Escriba la unidad a la que pertenece esta pregunta" required
+                onkeyup="this.value = this.value.toUpperCase();">
         </div>
-        </div>
-    
-        <form class="formulario_preguntas" action="pregunta">
+    </div>
+
+    <form class="formulario_preguntas" action="pregunta">
         <div class="body_formulario_preguntas">
 
         </div>
@@ -101,7 +102,7 @@
             <button type="button" class="btn btn-outline-dark" type="submit">finalizar</button>
             <button type="button" class="btn btn-outline-dark" onclick="agregaPregunta()">Agregar Pregunta</button>
         </div>
-        </form>
+    </form>
 
 </body>
 
