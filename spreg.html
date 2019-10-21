@@ -6,12 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Subir Pregunta</title>
-
+    <!--Eliminar y agregar preguntas-->
     <script src="js/nueva_pregunta.js"></script>
+    <!--Llamado a mi css-->
+    <link rel="stylesheet" href="css/Spregu.css">
+    <!--boodtrap-->
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+
+    <!-- Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+
+    <!--Llamado a scrips de bodstrap-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 
 <body>
-
+<!--Muestra la cabecera principal-->
+        <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+                <div class="container">
+                    <a class="navbar-brand" href="#">
+                        <img src="img/logo_biofisica.png" width="100" alt="logo_biofisica">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-11"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbar-list-11">
+                        <ul class="navbar-nav ml-auto ">
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+<!--Empieza el formulario para subir las preguntas-->
     <div class="plantilla_pregunta" hidden>
         <div class="eliminar_pregunta" style="display: flex; justify-content: flex-end;">
             <span onclick="eliminarPregunta(this)">&times;</span>
@@ -41,6 +77,7 @@
                 <option value="c">C</option>
                 <option value="d">D</option>
             </select>
+            
         </div>
     </div>
     
