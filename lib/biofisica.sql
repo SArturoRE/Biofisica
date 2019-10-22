@@ -9,7 +9,8 @@ drop function if exists alumnoRegistrado;
 drop function if exists profesorRegistrado;
 drop function if exists getInfousuario;
 drop function if exists agrega_materialDidactico;
-drop function if exists getInfoMaterialDidactico;
+drop function if exists removeMaterialDidactico;
+-- drop function if exists getInfoMaterialDidactico;
 -- 
 -- tablas
 -- 
@@ -142,6 +143,13 @@ begin
     insert into materialDidactico(nombre, tipo, rutaServidor, estadoVisibilidad) values(nombreTemp, tipoTemp, rutaServidorTemp, estadoVisibilidadTemp);
     select idMaterialDidactico into idMaterialApoyo_Temp from materialDidactico order by idMaterialDidactico desc limit 1;
     return idMaterialApoyo_Temp;
+end;
+
+create function removeMaterialDidactico(materialDidactico_Temp int )
+returns int
+begin
+    delete from materialDidactico where idMaterialDidactico=materialDidactico_Temp;
+    return 1;
 end;
 
 -- create function getInfoMaterialDidactico()

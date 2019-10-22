@@ -2,7 +2,7 @@
 
 function getConexionDB(){
 
-    $conexion = new mysqli("localhost", "root", "", "bio2");
+    $conexion = new mysqli("localhost", "xDB", "15628311.xMariaDB", "BiofisicaDB");
     
     if (!$conexion) {
         echo "error al conecatar la base de datos";

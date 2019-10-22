@@ -51,11 +51,11 @@
         <div class="body_plantilla_MaterialApoyo">
             <iframe src="" width='400' height='300' allowfullscreen
                 webkitallowfullscreen></iframe>
-            <input type="text" value="" name="idMaterialDidactico" hidden>
+            <input type="text" name="idMaterialDidactico" hidden>
         </div>
         <div class="footer_plantilla_MaterialApoyo" style="display: flex; justify-content: space-around;">
             <button class="btn btn-outline-dark">mostrar al alumno</button>
-            <button class="btn btn-outline-dark">eliminar</button>
+            <button class="btn btn-outline-dark" onclick="elimina_MateriaApoyo(this)">eliminar</button>
         </div>
     </div>
 
@@ -102,10 +102,29 @@
             obtenArchivos_MaterialDidactico_Servidor();
         }
 
+        function elimina_MateriaApoyo(btn){
+            var footer_plantilla_MaterialApoyo = btn.parentElement;
+            var plantilla = footer_plantilla_MaterialApoyo.parentElement;
+            var tipo = plantilla.parentElement;
+            tipo.removeChild(plantilla);
+            var input = footer_plantilla_MaterialApoyo.previousElementSibling.querySelector("input[name='idMaterialDidactico']");
+            var idMaterialDidactico = input.value;
+            var request = new XMLHttpRequest();
+            request.open("post", "php/removeMaterialDidactico.php");
+            var formData = new FormData();
+            formData.append("idMaterialDidactico", idMaterialDidactico);
+            request.send(formData);
+            request.onload = function(){
+                if(request.status != 200){
+                    // error
+                } else {
+                    console.log(request.responseText);
+                }
+            };
+        }
+
         function obtenArchivos_MaterialDidactico_Servidor(){
             let plantilla_MaterialApoyo = document.querySelector(".plantilla_MaterialApoyo");
-            let iframe = plantilla_MaterialApoyo.querySelector("iframe");
-            let input_idMaterialDidactico = plantilla_MaterialApoyo.querySelector("input[name='idMaterialDidactico']");
 
             var request = new XMLHttpRequest();
             request.open("get", "php/getInfoMaterialDidactico.php");
@@ -115,6 +134,7 @@
                     alert(`Error: ${request.status}:: ${request.statusText}`);
                 } else {
                     if(request.responseText != "null"){
+                        // console.log(request.responseText);
                         let responseText = JSON.parse(request.responseText);
                         if (responseText["error"] != undefined) {
                             console.log(responseText);
@@ -126,21 +146,26 @@
                                 let rutaServidor = e["rutaServidor"];
                                 let estadoVisibilidad = e["estadoVisibilidad"];
 
-                                iframe.src = "./ViewerJS/#../materialApoyo/" + nombre;
+                                
                                 let div_plantilla_MaterialApoyo = document.createElement("div");
                                 div_plantilla_MaterialApoyo.innerHTML = plantilla_MaterialApoyo.innerHTML;
-
+                                let iframe = div_plantilla_MaterialApoyo.querySelector("iframe");
+                                let input_idMaterialDidactico = div_plantilla_MaterialApoyo.querySelector("input[name='idMaterialDidactico']");
+                                
+                                iframe.src = "./ViewerJS/#../materialApoyo/" + nombre;
+                                input_idMaterialDidactico.value = idMaterialDidactico;
+                                
                                 if (tipo == "vistoClase") {
                                     var material = document.querySelector(".vistos_en_clase");
                                 } else {
                                     var material = document.querySelector(".materialApoyo_archivos").querySelector(".externo");
                                 }
-
+                                
                                 material.insertAdjacentElement("beforeend", div_plantilla_MaterialApoyo);
                             });
                         }
                     } else {
-                        console.log("sin archivos de material didactico ");
+                        console.log("sin archivos de material didactico");
                     }
                 }
             }
@@ -185,6 +210,7 @@
                     alert(`Error ${request.status}: ${request.statusText}`);
                 } else {
 
+                    // console.log(request.responseText);
                     let responseText = JSON.parse(request.responseText);
                     if(responseText["error"] != undefined) {
                         alert("mensaje de error");
