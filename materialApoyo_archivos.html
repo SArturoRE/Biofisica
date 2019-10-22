@@ -48,83 +48,46 @@
     </nav>
 
     <div class="materialApoyo">
-        <div class="header_materialApoyo_archivos" style="display: flex; justify-content: center;margin: 5vh 0;">
-            <input type="file" name="" id="">
-            <button class="btn btn-success">agregar archivo</button>
+        <div class="header_materialApoyo_archivos  shadow p-3 mb-5 bg-white rounded"
+            style="margin: 10vh 0; margin: 5vw;">
+            <div>
+                <p style="text-align: center; font-size: 3em;">Agregar Nuevo Archivo</p>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <input type="file" name="" id="">
+                <button class="btn btn-success">agregar archivo</button>
+            </div>
+            <div class="div_tipoArchivo" style="display: flex; justify-content: center;margin: 3vh 0;">
+                <input type="radio" name="tipoArchivo" style="height: 30px; width: 20px;">
+                <label for="">Visto en Clase</label>
+
+                <input type="radio" name="tipoArchivo" style="height: 30px; width: 20px;">
+                <label for="">Material Externo</label>
+            </div>
         </div>
         <div class="materialApoyo_archivos" style="display: flex;">
             <div class="vistos_en_clase" style="text-align: center; width: 50vw;">
-                <header>visto en clase</header>
-                <div class="plantilla_MaterialApoyo" style="border: 1px solid;">
+                <header style="font-size: 2em;">Visto en Clase</header>
+                <div class="plantilla_MaterialApoyo shadow p-3 mb-5 bg-white rounded" style="margin: 1vw;">
                     <div class="body_plantilla_MaterialApoyo">
                         <iframe src="./ViewerJS/#../materialApoyo/pdf.pdf" width='400' height='300' allowfullscreen
                             webkitallowfullscreen></iframe>
                     </div>
                     <div class="footer_plantilla_MaterialApoyo" style="display: flex; justify-content: space-around;">
-                        <button class="btn btn-primary">ocultar al alumno</button>
-                        <button class="btn btn-danger">eliminar</button>
-                    </div>
-                </div>
-                <div class="plantilla_MaterialApoyo" style="border: 1px solid;">
-                    <div class="body_plantilla_MaterialApoyo">
-                        <iframe src="./ViewerJS/#../materialApoyo/pdf.pdf" width='400' height='300' allowfullscreen
-                            webkitallowfullscreen></iframe>
-                    </div>
-                    <div class="footer_plantilla_MaterialApoyo" style="display: flex; justify-content: space-around;">
-                        <button class="btn btn-primary">ocultar al alumno</button>
-                        <button class="btn btn-danger">eliminar</button>
-                    </div>
-                </div>
-                <div class="plantilla_MaterialApoyo" style="border: 1px solid;">
-                    <div class="body_plantilla_MaterialApoyo">
-                        <iframe src="./ViewerJS/#../materialApoyo/pdf.pdf" width='400' height='300' allowfullscreen
-                            webkitallowfullscreen></iframe>
-                    </div>
-                    <div class="footer_plantilla_MaterialApoyo" style="display: flex; justify-content: space-around;">
-                        <button class="btn btn-primary">ocultar al alumno</button>
-                        <button class="btn btn-danger">eliminar</button>
-                    </div>
-                </div>
-                <div class="plantilla_MaterialApoyo" style="border: 1px solid;">
-                    <div class="body_plantilla_MaterialApoyo">
-                        <iframe src="./ViewerJS/#../materialApoyo/pdf.pdf" width='400' height='300' allowfullscreen
-                            webkitallowfullscreen></iframe>
-                    </div>
-                    <div class="footer_plantilla_MaterialApoyo" style="display: flex; justify-content: space-around;">
-                        <button class="btn btn-primary">ocultar al alumno</button>
+                        <button class="btn btn-primary">mostrar al alumno</button>
                         <button class="btn btn-danger">eliminar</button>
                     </div>
                 </div>
             </div>
             <div class="externo" style="text-align: center; width: 50vw;">
-                <header>material externo</header>
-                <div class="plantilla_MaterialApoyo" style="border: 1px solid;">
+                <header style="font-size: 2em;">Material Externo</header>
+                <div class="plantilla_MaterialApoyo shadow p-3 mb-5 bg-white rounded" style="margin: 1vw;">
                     <div class="body_plantilla_MaterialApoyo">
                         <iframe src="./ViewerJS/#../materialApoyo/pdf.pdf" width='400' height='300' allowfullscreen
                             webkitallowfullscreen></iframe>
                     </div>
                     <div class="footer_plantilla_MaterialApoyo" style="display: flex; justify-content: space-around;">
-                        <button class="btn btn-primary">ocultar al alumno</button>
-                        <button class="btn btn-danger">eliminar</button>
-                    </div>
-                </div>
-                <div class="plantilla_MaterialApoyo" style="border: 1px solid;">
-                    <div class="body_plantilla_MaterialApoyo">
-                        <iframe src="./ViewerJS/#../materialApoyo/pdf.pdf" width='400' height='300' allowfullscreen
-                            webkitallowfullscreen></iframe>
-                    </div>
-                    <div class="footer_plantilla_MaterialApoyo" style="display: flex; justify-content: space-around;">
-                        <button class="btn btn-primary">ocultar al alumno</button>
-                        <button class="btn btn-danger">eliminar</button>
-                    </div>
-                </div>
-                <div class="plantilla_MaterialApoyo" style="border: 1px solid;">
-                    <div class="body_plantilla_MaterialApoyo">
-                        <iframe src="./ViewerJS/#../materialApoyo/pdf.pdf" width='400' height='300' allowfullscreen
-                            webkitallowfullscreen></iframe>
-                    </div>
-                    <div class="footer_plantilla_MaterialApoyo" style="display: flex; justify-content: space-around;">
-                        <button class="btn btn-primary">ocultar al alumno</button>
+                        <button class="btn btn-primary">mostrar al alumno</button>
                         <button class="btn btn-danger">eliminar</button>
                     </div>
                 </div>
