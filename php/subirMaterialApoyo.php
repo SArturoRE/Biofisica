@@ -32,6 +32,9 @@ if (!move_uploaded_file($tmp_name, $rutaCarpeta . $name)) {
 $query = "select agrega_materialDidactico('$name','$tipo','$rutaServidor','$estadoVisibilidad')";
 $result = $conexion->query($query);
 
+$idMaterialDidactico = $result->fetch_assoc();
+
 $response["name"] = $name;
 $response["tipo"] = $tipo;
+$response["idMaterialDidactico"] = $idMaterialDidactico;
 echo json_encode($response);

@@ -9,7 +9,7 @@ drop function if exists alumnoRegistrado;
 drop function if exists profesorRegistrado;
 drop function if exists getInfousuario;
 drop function if exists agrega_materialDidactico;
-
+drop function if exists getInfoMaterialDidactico;
 -- 
 -- tablas
 -- 
@@ -138,6 +138,29 @@ end;
 create function agrega_materialDidactico(nombreTemp varchar(50), tipoTemp varchar(20), rutaServidorTemp varchar(20), estadoVisibilidadTemp varchar(20))
 returns int
 begin
+    declare idMaterialApoyo_Temp int;
     insert into materialDidactico(nombre, tipo, rutaServidor, estadoVisibilidad) values(nombreTemp, tipoTemp, rutaServidorTemp, estadoVisibilidadTemp);
-    return 1;
+    select idMaterialDidactico into idMaterialApoyo_Temp from materialDidactico order by idMaterialDidactico desc limit 1;
+    return idMaterialApoyo_Temp;
 end;
+
+-- create function getInfoMaterialDidactico()
+-- returns json
+-- begin
+--     declare datos json;
+
+--     select json_object(
+--         'idMaterialDidactico', idMaterialDidactico,
+--         'nombre', nombre,
+--         'tipo', tipo,
+--         'rutaServidor', rutaServidor,
+--         'estadoVisibilidad', estadoVisibilidad
+--     ) into datos
+--     from materialDidactico;
+
+--     if datos is null then
+--         set datos = json_object();
+--     end if;
+    
+--     return datos;
+-- end;

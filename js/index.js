@@ -8,7 +8,7 @@ function set_Navbar_porSesion() {
     let tipoSesion = sessionStorage.getItem("tipoSesion");
     let navbar_nav = document.querySelector(".navbar-nav");
 
-    console.log(idSesion);
+    // console.log(idSesion);
 
     if (idSesion != null) {
         navbar_nav.innerHTML =

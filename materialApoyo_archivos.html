@@ -51,6 +51,7 @@
         <div class="body_plantilla_MaterialApoyo">
             <iframe src="" width='400' height='300' allowfullscreen
                 webkitallowfullscreen></iframe>
+            <input type="text" value="" name="idMaterialDidactico" hidden>
         </div>
         <div class="footer_plantilla_MaterialApoyo" style="display: flex; justify-content: space-around;">
             <button class="btn btn-outline-dark">mostrar al alumno</button>
@@ -98,12 +99,55 @@
                 newFile_to_Upload = this.files[0];
             });
 
-            obtenArchivosServidor();
+            obtenArchivos_MaterialDidactico_Servidor();
         }
 
-        function obtenArchivosServidor(){
+        function obtenArchivos_MaterialDidactico_Servidor(){
             let plantilla_MaterialApoyo = document.querySelector(".plantilla_MaterialApoyo");
             let iframe = plantilla_MaterialApoyo.querySelector("iframe");
+            let input_idMaterialDidactico = plantilla_MaterialApoyo.querySelector("input[name='idMaterialDidactico']");
+
+            var request = new XMLHttpRequest();
+            request.open("get", "php/getInfoMaterialDidactico.php");
+            request.send();
+            request.onload = function(){
+                if(request.status != 200) {
+                    alert(`Error: ${request.status}:: ${request.statusText}`);
+                } else {
+                    if(request.responseText != "null"){
+                        let responseText = JSON.parse(request.responseText);
+                        if (responseText["error"] != undefined) {
+                            console.log(responseText);
+                        } else {
+                            responseText.forEach(function(e){
+                                let idMaterialDidactico = e["idMaterialDidactico"];
+                                let nombre = e["nombre"];
+                                let tipo = e["tipo"];
+                                let rutaServidor = e["rutaServidor"];
+                                let estadoVisibilidad = e["estadoVisibilidad"];
+
+                                iframe.src = "./ViewerJS/#../materialApoyo/" + nombre;
+                                let div_plantilla_MaterialApoyo = document.createElement("div");
+                                div_plantilla_MaterialApoyo.innerHTML = plantilla_MaterialApoyo.innerHTML;
+
+                                if (tipo == "vistoClase") {
+                                    var material = document.querySelector(".vistos_en_clase");
+                                } else {
+                                    var material = document.querySelector(".materialApoyo_archivos").querySelector(".externo");
+                                }
+
+                                material.insertAdjacentElement("beforeend", div_plantilla_MaterialApoyo);
+                            });
+                        }
+                    } else {
+                        console.log("sin archivos de material didactico");
+                    }
+                }
+            }
+
+            request.onerror = function(){
+                alert("error inesperado a intentar obtener loas archivos del material didactico sorry bro :,v");
+            }
         }
 
         function subirArchivo(){
@@ -147,7 +191,8 @@
                     } else {
                         let name = responseText["name"];
                         let tipo = responseText["tipo"];
-                        agrega_MaterialApoyo(name, tipo);
+                        let idMaterialDidactico = responseText["idMaterialDidactico"];
+                        agrega_MaterialApoyo(name, tipo, idMaterialDidactico);
                     }
                 }
             }
@@ -163,9 +208,12 @@
             };
         }
 
-        function agrega_MaterialApoyo(name, tipo){
+        function agrega_MaterialApoyo(name, tipo, idMaterialDidactico){
             let plantilla_MaterialApoyo = document.querySelector(".plantilla_MaterialApoyo");
             let iframe = plantilla_MaterialApoyo.querySelector("iframe");
+            let input_idMaterialDidactico = plantilla_MaterialApoyo.querySelector("input[name='idMaterialDidactico']");
+
+            input_idMaterialDidactico.value = idMaterialDidactico;
             iframe.src = "./ViewerJS/#../materialApoyo/" + name;
             let div_plantilla_MaterialApoyo = document.createElement("div");
             div_plantilla_MaterialApoyo.innerHTML = plantilla_MaterialApoyo.innerHTML;
