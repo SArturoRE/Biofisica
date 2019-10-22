@@ -1,11 +1,18 @@
 drop table if exists alumno;
 drop table if exists profesor;
 drop table if exists usuario;
+drop table if exists materialDidactico;
+
 drop function if exists agregaAlumno;
 drop function if exists agregaProfesor;
 drop function if exists alumnoRegistrado;
 drop function if exists profesorRegistrado;
 drop function if exists getInfousuario;
+drop function if exists agrega_materialDidactico;
+
+-- 
+-- tablas
+-- 
 
 create table usuario(
     idUsuario int not null auto_increment primary key,
@@ -27,6 +34,19 @@ create table alumno(
     idUsuario int not null,
     foreign key(idUsuario) references usuario(idUsuario)
 );
+
+create table materialDidactico(
+    idMaterialDidactico int auto_increment primary key,
+    nombre varchar(50) not null,
+    tipo varchar(20) not null,
+    rutaServidor varchar(20) not null,
+    estadoVisibilidad varchar(20) not null
+);
+
+
+-- 
+-- funciones
+-- 
 
 create function agregaAlumno(nombre varchar(20), apellidoP varchar(20), apellidoM varchar(20), password varchar(20), grupo varchar(30), matricula int)
 returns json
@@ -113,4 +133,11 @@ begin
         ) into datos
     from usuario where usuario.idUsuario=idUsuario;
     return datos;
+end;
+
+create function agrega_materialDidactico(nombreTemp varchar(50), tipoTemp varchar(20), rutaServidorTemp varchar(20), estadoVisibilidadTemp varchar(20))
+returns int
+begin
+    insert into materialDidactico(nombre, tipo, rutaServidor, estadoVisibilidad) values(nombreTemp, tipoTemp, rutaServidorTemp, estadoVisibilidadTemp);
+    return 1;
 end;

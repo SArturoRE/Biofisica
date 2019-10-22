@@ -54,14 +54,14 @@
                 <p style="text-align: center; font-size: 3em;">Agregar Nuevo Archivo</p>
             </div>
             <div style="display: flex; justify-content: center;">
-                <input type="file" name="" id="">
-                <button class="btn btn-success">agregar archivo</button>
+                <input type="file" name="" id="addNewFile">
+                <button class="btn btn-success" onclick="subirArchivo();">agregar archivo</button>
             </div>
             <div class="div_tipoArchivo" style="display: flex; justify-content: center;margin: 3vh 0;">
-                <input type="radio" name="tipoArchivo" style="height: 30px; width: 20px;">
+                <input type="radio" name="tipoArchivo" value="vistoClase" style="height: 30px; width: 20px;">
                 <label for="">Visto en Clase</label>
 
-                <input type="radio" name="tipoArchivo" style="height: 30px; width: 20px;">
+                <input type="radio" name="tipoArchivo" value="materialExterno" style="height: 30px; width: 20px;">
                 <label for="">Material Externo</label>
             </div>
         </div>
@@ -81,20 +81,73 @@
             </div>
             <div class="externo" style="text-align: center; width: 50vw;">
                 <header style="font-size: 2em;">Material Externo</header>
-                <div class="plantilla_MaterialApoyo shadow p-3 mb-5 bg-white rounded" style="margin: 1vw;">
-                    <div class="body_plantilla_MaterialApoyo">
-                        <iframe src="./ViewerJS/#../materialApoyo/pdf.pdf" width='400' height='300' allowfullscreen
-                            webkitallowfullscreen></iframe>
-                    </div>
-                    <div class="footer_plantilla_MaterialApoyo" style="display: flex; justify-content: space-around;">
-                        <button class="btn btn-primary">mostrar al alumno</button>
-                        <button class="btn btn-danger">eliminar</button>
-                    </div>
-                </div>
             </div>
         </div>
 
     </div>
+
+    <script type="text/javascript">
+    
+        // archivo a subir
+        var newFile_to_Upload = null;
+
+        window.onload = function(){
+            document.querySelector("#addNewFile").addEventListener("change", function(){
+                if(this.files.length == 0) return;
+                newFile_to_Upload = this.files[0];
+            });
+        }
+
+        function subirArchivo(){
+            var tipoArchivo = document.querySelector("input[name='tipoArchivo']:checked");
+
+            if(tipoArchivo == null || newFile_to_Upload == null || newFile_to_Upload.type != "application/pdf"){
+                if(newFile_to_Upload == null){
+                    // mensaje de error
+                    alert("elige un archivo");
+                }
+
+                if(newFile_to_Upload.type != "application/pdf"){
+                    // mensaje de error
+                    alert("seleciona un archivo pdf valido");
+                }
+                
+                if(tipoArchivo == null){
+                    // mensaje de error
+                    alert("elige una opcion");
+                }
+                return;
+            }
+
+            console.log("enviando");
+
+            let formData = new FormData();
+            formData.append("filePDF", newFile_to_Upload);
+            formData.append("tipo", tipoArchivo.value);
+            let request = new XMLHttpRequest();
+            request.open("post", "php/subirMaterialApoyo.php");
+
+            request.send(formData);
+            request.onload = function(){
+                if(request.status != 200){
+                    alert(`Error ${request.status}: ${request.statusText}`);
+                } else {
+                    console.log("terminado");
+                    console.log(request.responseText);
+                }
+            }
+
+            request.onerror = function(){
+                alert("error inesperado al subir el archivo pdf al servidor sorry :,v");
+            }
+            request.onprogress = function (event) { // triggers periodically
+                // event.loaded - how many bytes downloaded
+                // event.lengthComputable = true if the server sent Content-Length header
+                // event.total - total number of bytes (if lengthComputable)
+                console.log(`Received ${event.loaded} of ${event.total}`);
+            };
+        }
+    </script>
 
 </body>
 
