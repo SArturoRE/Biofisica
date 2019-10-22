@@ -3,6 +3,16 @@
 require "conexionDB.php";
 $conexion = getConexionDB();
 
+if ($conexion->connect_errno) {
+
+    $data["error"] = "Fallo al conectarse a MySQL";
+    $data["#"] = $mysqli->connect_errno;
+    $data["descripcion"] = $mysqli->connect_error;
+
+    echo json_encode($data);
+    exit;
+}
+
 date_default_timezone_set("America/Mexico_City");
 $date_time = date("dmY_His");
 
@@ -19,7 +29,9 @@ if (!move_uploaded_file($tmp_name, $rutaCarpeta . $name)) {
     echo "Error al copiar $name...\n";
     exit;
 }
-echo "terminado";
-
 $query = "select agrega_materialDidactico('$name','$tipo','$rutaServidor','$estadoVisibilidad')";
 $result = $conexion->query($query);
+
+$response["name"] = $name;
+$response["tipo"] = $tipo;
+echo json_encode($response);

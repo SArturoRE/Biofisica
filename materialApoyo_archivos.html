@@ -47,6 +47,17 @@
         </div>
     </nav>
 
+    <div class="plantilla_MaterialApoyo shadow p-3 mb-5 bg-white rounded" style="margin: 1vw;" hidden>
+        <div class="body_plantilla_MaterialApoyo">
+            <iframe src="" width='400' height='300' allowfullscreen
+                webkitallowfullscreen></iframe>
+        </div>
+        <div class="footer_plantilla_MaterialApoyo" style="display: flex; justify-content: space-around;">
+            <button class="btn btn-outline-dark">mostrar al alumno</button>
+            <button class="btn btn-outline-dark">eliminar</button>
+        </div>
+    </div>
+
     <div class="materialApoyo">
         <div class="header_materialApoyo_archivos  shadow p-3 mb-5 bg-white rounded"
             style="margin: 10vh 0; margin: 5vw;">
@@ -54,13 +65,8 @@
                 <p style="text-align: center; font-size: 3em;">Agregar Nuevo Archivo</p>
             </div>
             <div style="display: flex; justify-content: center;">
-<<<<<<< HEAD
                 <input type="file" name="" id="addNewFile">
                 <button class="btn btn-success" onclick="subirArchivo();">agregar archivo</button>
-=======
-                <input type="file" name="" id="">
-                <button class="btn btn-outline-success">agregar archivo</button>
->>>>>>> f3add1c9a6245047b90c259de87acf7686bb6d2c
             </div>
             <div class="div_tipoArchivo" style="display: flex; justify-content: center;margin: 3vh 0;">
                 <input type="radio" name="tipoArchivo" value="vistoClase" style="height: 30px; width: 20px;">
@@ -73,16 +79,6 @@
         <div class="materialApoyo_archivos" style="display: flex;">
             <div class="vistos_en_clase" style="text-align: center; width: 50vw;">
                 <header style="font-size: 2em;">Visto en Clase</header>
-                <div class="plantilla_MaterialApoyo shadow p-3 mb-5 bg-white rounded" style="margin: 1vw;">
-                    <div class="body_plantilla_MaterialApoyo">
-                        <iframe src="./ViewerJS/#../materialApoyo/pdf.pdf" width='400' height='300' allowfullscreen
-                            webkitallowfullscreen></iframe>
-                    </div>
-                    <div class="footer_plantilla_MaterialApoyo" style="display: flex; justify-content: space-around;">
-                        <button class="btn btn-outline-dark">mostrar al alumno</button>
-                        <button class="btn btn-outline-dark">eliminar</button>
-                    </div>
-                </div>
             </div>
             <div class="externo" style="text-align: center; width: 50vw;">
                 <header style="font-size: 2em;">Material Externo</header>
@@ -101,6 +97,13 @@
                 if(this.files.length == 0) return;
                 newFile_to_Upload = this.files[0];
             });
+
+            obtenArchivosServidor();
+        }
+
+        function obtenArchivosServidor(){
+            let plantilla_MaterialApoyo = document.querySelector(".plantilla_MaterialApoyo");
+            let iframe = plantilla_MaterialApoyo.querySelector("iframe");
         }
 
         function subirArchivo(){
@@ -137,8 +140,15 @@
                 if(request.status != 200){
                     alert(`Error ${request.status}: ${request.statusText}`);
                 } else {
-                    console.log("terminado");
-                    console.log(request.responseText);
+
+                    let responseText = JSON.parse(request.responseText);
+                    if(responseText["error"] != undefined) {
+                        alert("mensaje de error");
+                    } else {
+                        let name = responseText["name"];
+                        let tipo = responseText["tipo"];
+                        agrega_MaterialApoyo(name, tipo);
+                    }
                 }
             }
 
@@ -151,6 +161,22 @@
                 // event.total - total number of bytes (if lengthComputable)
                 console.log(`Received ${event.loaded} of ${event.total}`);
             };
+        }
+
+        function agrega_MaterialApoyo(name, tipo){
+            let plantilla_MaterialApoyo = document.querySelector(".plantilla_MaterialApoyo");
+            let iframe = plantilla_MaterialApoyo.querySelector("iframe");
+            iframe.src = "./ViewerJS/#../materialApoyo/" + name;
+            let div_plantilla_MaterialApoyo = document.createElement("div");
+            div_plantilla_MaterialApoyo.innerHTML = plantilla_MaterialApoyo.innerHTML;
+
+            if(tipo == "vistoClase") {
+                var material = document.querySelector(".vistos_en_clase");
+            } else {
+                var material = document.querySelector(".materialApoyo_archivos").querySelector(".externo");
+            }
+
+            material.insertAdjacentElement("beforeend", div_plantilla_MaterialApoyo);
         }
     </script>
 
