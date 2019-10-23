@@ -3,16 +3,6 @@
 require "conexionDB.php";
 $conexion = getConexionDB();
 
-if ($conexion->connect_errno) {
-
-    $data["error"] = "Fallo al conectarse a MySQL";
-    $data["#"] = $mysqli->connect_errno;
-    $data["descripcion"] = $mysqli->connect_error;
-
-    echo json_encode($data);
-    exit;
-}
-
 date_default_timezone_set("America/Mexico_City");
 $date_time = date("dmY_His");
 

@@ -5,16 +5,6 @@ $conexion = getConexionDB();
 
 $datosUsuario = json_decode(file_get_contents("php://input"), true);
 
-if ($conexion->connect_errno) {
-
-    $data["error"] = "Fallo al conectarse a MySQL"; 
-    $data["#"] = $mysqli->connect_errno; 
-    $data["descripcion"] = $mysqli->connect_error;
-
-    echo json_encode($data);
-    exit;
-}
-
 $nombre = $datosUsuario["Nombre"];
 $apellidoM = $datosUsuario["ApellidoM"];
 $apellidoP = $datosUsuario["ApellidoP"];

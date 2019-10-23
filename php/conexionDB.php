@@ -3,8 +3,14 @@
 function getConexionDB()
 {
     $conexion = new mysqli("localhost", "xDB", "15628311.xMariaDB", "BiofisicaDB");
-    if (!$conexion) {
-        echo "error al conecatar la base de datos";
+
+    if ($conexion->connect_errno) {
+
+        $data["error"] = "Fallo al conectarse a MySQL";
+        $data["#"] = $mysqli->connect_errno;
+        $data["descripcion"] = $mysqli->connect_error;
+
+        echo json_encode($data);
         exit;
     }
 
