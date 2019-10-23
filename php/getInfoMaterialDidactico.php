@@ -21,7 +21,7 @@ $query = "
 $result = $conexion->query($query);
 $datos = [];
 
-while( ($row = $result->fetch_assoc()) ){
+while (($row = $result->fetch_assoc())) {
     array_push($datos, $row);
 }
 
