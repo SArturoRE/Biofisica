@@ -1,7 +1,23 @@
 window.addEventListener("load", function () {
     muestra_oculta_campos_formularios();
     set_Navbar_porSesion();
+    set_toastr_options();
 });
+function set_toastr_options(){
+    toastr.options = {
+        "closeButton": false,
+        "newestOnTop": false,
+        "positionClass":"toast-bottom-center",
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+    };
+}
 
 function set_Navbar_porSesion() {
     let idSesion = sessionStorage.getItem("idSesion");
@@ -100,6 +116,8 @@ function getInfoUsuario() {
             if (infoResponse["error"] == undefined) {
                 $("#iniciarSesion").modal("hide");
                 agregaSesionUsuario(datos);
+            } else{
+                toastr.error(infoResponse["error"], 'Error!');
             }
         }
     };
