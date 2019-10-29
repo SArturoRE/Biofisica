@@ -96,7 +96,7 @@ begin
     select idUsuario into idUsuario_temp from alumno where alumno.matricula=matricula;  
 
     if idUsuario_temp is null then
-        set datos = json_object("error","alumno con la matricula proporcionada no encontrado");
+        set datos = json_object("error","alumno con la matricula proporcionada no registrado");
     else
         set datos = getInfousuario(idUsuario_temp);
     end if;
@@ -113,7 +113,7 @@ begin
     select idUsuario into idUsuario_temp from profesor where profesor.numTrabajador=numTrabajador;  
 
     if idUsuario_temp is null then
-        set datos = json_object("error","profesor con la matricula proporcionada no encontrado");
+        set datos = json_object("error","profesor con el numero de trabajador proporcionadp no registrado");
     else
         set datos = getInfousuario(idUsuario_temp);
     end if;
