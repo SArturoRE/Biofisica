@@ -3,7 +3,7 @@ window.addEventListener("load", function () {
     set_Navbar_porSesion();
     set_toastr_options();
 });
-function set_toastr_options(){
+function set_toastr_options() {
     toastr.options = {
         "closeButton": false,
         "newestOnTop": false,
@@ -28,7 +28,7 @@ function set_Navbar_porSesion() {
 
     if (idSesion != null) {
         navbar_nav.innerHTML =
-        `
+            `
             <li class='nav-item dropdown'>
                 <a class='nav-link dropdown-toggle' href='#' role='button' data-toggle='dropdown'>Material Apoyo</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -38,15 +38,15 @@ function set_Navbar_porSesion() {
             </li>
         `;
         if (tipoSesion == "Alumno") {
-            navbar_nav.innerHTML = navbar_nav.innerHTML + 
-            `
+            navbar_nav.innerHTML = navbar_nav.innerHTML +
+                `
                 <li class='nav-item'>
                     <a class='nav-link' href='#'>Examenes</a>
                 </li>
             `;
         }
-        navbar_nav.innerHTML = navbar_nav.innerHTML + 
-        `
+        navbar_nav.innerHTML = navbar_nav.innerHTML +
+            `
             <li class='nav-item'>
                 <!--configuracion del perfil-->
                 <a class='nav-link' href='#'>Configuracion</a>
@@ -111,12 +111,15 @@ function getInfoUsuario() {
         if (request.status != 200) {
             alert(`Error ${request.status}: ${request.statusText}`);
         } else {
+            console.log(request.response);
             let infoResponse = JSON.parse(request.response);
 
+            console.log(infoResponse);
+            
             if (infoResponse["error"] == undefined) {
                 $("#iniciarSesion").modal("hide");
                 agregaSesionUsuario(datos);
-            } else{
+            } else {
                 toastr.error(infoResponse["error"], 'Error!');
             }
         }
@@ -146,10 +149,14 @@ function addInfoUsuario() {
         } else {
             let infoResponse = JSON.parse(request.response);
 
+            console.log(infoResponse);
+
             if (infoResponse["error"] == undefined) {
 
                 agregaSesionUsuario(datos);
                 $("#Registro").modal("hide");
+            } else {
+                toastr.error(infoResponse["error"], 'Error!');
             }
         }
     };

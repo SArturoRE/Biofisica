@@ -1,14 +1,23 @@
 <?php
 
 require "conexionDB.php";
-$conexion = getConexionDB();
 
 $datosUsuario = json_decode(file_get_contents("php://input"), true);
+
+$password_Temp = $datosUsuario["PasswordConfirm"];
+$password = $datosUsuario["Password"];
+
+if ($password_Temp != $password){
+    $response_to_usuario["error"] = "verifica las contraseñas ingresadas";
+    echo json_encode($response_to_usuario);
+    exit;
+}
+
+$conexion = getConexionDB();
 
 $nombre = $datosUsuario["Nombre"];
 $apellidoM = $datosUsuario["ApellidoM"];
 $apellidoP = $datosUsuario["ApellidoP"];
-$password = $datosUsuario["Password"];
 $grupo = $datosUsuario["Grupo"];
 
 if ( isset($datosUsuario["Matricula"]) ) {

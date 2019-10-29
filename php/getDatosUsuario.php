@@ -23,12 +23,14 @@ $result = $conexion->query($query);
 $cad = $result->fetch_assoc();
 
 $response_to_client = json_decode($cad[$key], true);
+if($response_to_client["error"] == "undefined") {
 
-$passwordUser = $response_to_client["password"];
-$passwordUser_Temp = $datosUsuario_Temp["Password"];
-if ($passwordUser != $passwordUser_Temp){
-    $response_to_client = [];
-    $response_to_client["error"] = "contraseña incorrecta";
+    $passwordUser = $response_to_client["password"];
+    $passwordUser_Temp = $datosUsuario_Temp["Password"];
+    if ($passwordUser != $passwordUser_Temp){
+        $response_to_client = [];
+        $response_to_client["error"] = "contraseña incorrecta";
+    }
 }
 echo json_encode($response_to_client);
 
