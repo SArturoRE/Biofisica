@@ -28,3 +28,6 @@ $response["name"] = $name;
 $response["tipo"] = $tipo;
 $response["idMaterialDidactico"] = $idMaterialDidactico;
 echo json_encode($response);
+
+$result->free();
+$conexion->close();

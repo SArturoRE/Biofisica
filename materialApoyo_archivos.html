@@ -11,21 +11,18 @@
     <script src="js/index.js"></script>
 
     <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 
     <!-- Popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
     <!--Llamado a scrips de bodstrap-->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!--toastr-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 </head>
 
@@ -54,29 +51,12 @@
             <input type="text" name="idMaterialDidactico" hidden>
         </div>
         <div class="footer_plantilla_MaterialApoyo" style="display: flex; justify-content: space-around;">
-            <button class="btn btn-outline-dark">mostrar al alumno</button>
-            <button class="btn btn-outline-dark" onclick="elimina_MateriaApoyo(this)">eliminar</button>
+            <button class="btn btn-outline-dark" onclick="toggleVisibilidadArchivo(this.parentElement.parentElement)">ocultar al alumno</button>
+            <button class="btn btn-outline-dark" onclick="elimina_MateriaApoyo(this.parentElement.parentElement)">eliminar</button>
         </div>
     </div>
 
     <div class="materialApoyo">
-        <div class="header_materialApoyo_archivos  shadow p-3 mb-5 bg-white rounded"
-            style="margin: 10vh 0; margin: 5vw;">
-            <div>
-                <p style="text-align: center; font-size: 3em;">Agregar Nuevo Archivo</p>
-            </div>
-            <div style="display: flex; justify-content: center;">
-                <input type="file" name="" id="addNewFile">
-                <button class="btn btn-success" onclick="subirArchivo();">agregar archivo</button>
-            </div>
-            <div class="div_tipoArchivo" style="display: flex; justify-content: center;margin: 3vh 0;">
-                <input type="radio" name="tipoArchivo" value="vistoClase" style="height: 30px; width: 20px;">
-                <label for="">Visto en Clase</label>
-
-                <input type="radio" name="tipoArchivo" value="materialExterno" style="height: 30px; width: 20px;">
-                <label for="">Material Externo</label>
-            </div>
-        </div>
         <div class="materialApoyo_archivos" style="display: flex;">
             <div class="vistos_en_clase" style="text-align: center; width: 50vw;">
                 <header style="font-size: 2em;">Visto en Clase</header>
@@ -94,21 +74,114 @@
         var newFile_to_Upload = null;
 
         window.onload = function(){
-            document.querySelector("#addNewFile").addEventListener("change", function(){
-                if(this.files.length == 0) return;
-                newFile_to_Upload = this.files[0];
-            });
-
+            verificaSesion_itemsSesion();
             obtenArchivos_MaterialDidactico_Servidor();
         }
 
-        function elimina_MateriaApoyo(btn){
-            var footer_plantilla_MaterialApoyo = btn.parentElement;
-            var plantilla = footer_plantilla_MaterialApoyo.parentElement;
-            var tipo = plantilla.parentElement;
-            tipo.removeChild(plantilla);
-            var input = footer_plantilla_MaterialApoyo.previousElementSibling.querySelector("input[name='idMaterialDidactico']");
-            var idMaterialDidactico = input.value;
+        function verificaSesion_itemsSesion(){
+
+            if(sessionStorage.getItem("tipoSesion") == undefined){
+                window.location.href = "/";
+            }
+            
+            let tipoSesion = sessionStorage.getItem("tipoSesion");
+            let materialApoyo_div = document.querySelector(".materialApoyo");
+            let agregaNuevoArchivo_html = `
+                <div class="header_materialApoyo_archivos  shadow p-3 mb-5 bg-white rounded"
+                    style="margin: 10vh 0; margin: 5vw;">
+                    <div>
+                        <p style="text-align: center; font-size: 3em;">Agregar Nuevo Archivo</p>
+                    </div>
+                    <div style="display: flex; justify-content: center;">
+                        <input type="file" name="" id="addNewFile">
+                        <button class="btn btn-success" onclick="subirArchivo();">agregar archivo</button>
+                    </div>
+                    <div class="div_tipoArchivo" style="display: flex; justify-content: center;margin: 3vh 0;">
+                        <input type="radio" name="tipoArchivo" value="vistoClase" style="height: 30px; width: 20px;">
+                        <label for="">Visto en Clase</label>
+
+                        <input type="radio" name="tipoArchivo" value="materialExterno" style="height: 30px; width: 20px;">
+                        <label for="">Material Externo</label>
+                    </div>
+                </div>
+            `;
+            let agregaNuevoArchivo_div = document.createElement("div");
+            agregaNuevoArchivo_div.innerHTML = agregaNuevoArchivo_html;
+            if( tipoSesion == "Profesor"){
+                materialApoyo_div.insertAdjacentElement("afterbegin", agregaNuevoArchivo_div);
+                document.querySelector("#addNewFile").addEventListener("change", function () {
+                    if (this.files.length == 0) return;
+                    newFile_to_Upload = this.files[0];
+                });
+            } else{
+                setInterval(verificaCambiosVisibilidad,5000);
+            }
+        }
+
+        function verificaCambiosVisibilidad(){
+            let materialApoyo = document.querySelector(".materialApoyo");
+            let plantilla_MaterialApoyo_array = materialApoyo.querySelectorAll(".plantilla_MaterialApoyo");
+
+            let request = new XMLHttpRequest();
+            request.open("get", "php/getVisibilidadArchivos.php");
+            request.send();
+            request.onload = function () {
+                if (request.status != 200) {
+                    alert(`Error: ${request.status}:: ${request.statusText}`);
+                } else {
+                    let data = JSON.parse(request.response);
+                    plantilla_MaterialApoyo_array.forEach(e =>{
+                        let idMaterialDidactico_input = e.querySelector("input");
+                        let idMaterialDidactico = idMaterialDidactico_input.value;
+
+                        estadoVisibilidad = data[idMaterialDidactico];           
+                        if (estadoVisibilidad == "oculto") {
+                            let plantilla_MaterialApoyo = materialApoyo.querySelector("._" + idMaterialDidactico);
+                            plantilla_MaterialApoyo.outerHTML = "";
+                            console.log(plantilla_MaterialApoyo);
+                            // materialApoyo.removeChild(plantilla_MaterialApoyo);
+                        }
+                    });
+                }
+            }
+        }
+
+        function toggleVisibilidadArchivo(materiaApoyo_div){
+            var idMaterialDidactico_input = materiaApoyo_div.querySelector("input");
+            var idMaterialDidactico = idMaterialDidactico_input.value;
+
+            let toggleVisivilidad_input = materiaApoyo_div.querySelector("button");
+            let toggleVisivilidad_label = toggleVisivilidad_input.innerText;
+
+            let data = new FormData();
+            data.append("idMaterialDidactico", idMaterialDidactico);
+            
+            if(toggleVisivilidad_label.indexOf("ocultar") != -1){
+                data.append("visibilidad", "oculto");
+                toggleVisivilidad_input.innerText = "mostrar al alumno";
+            } else{
+                data.append("visibilidad", "visible");
+                toggleVisivilidad_input.innerText = "ocultar al alumno";
+            }
+
+            let request = new XMLHttpRequest();
+            request.open("post", "php/cambiaVisibilidadArchivo.php");
+            request.send(data);
+            
+            request.onload = function () {
+                if (request.status != 200) {
+                    alert(`Error: ${request.status}:: ${request.statusText}`);
+                } else {
+                    console.log(request.responseText);
+                }
+            }
+        }
+
+        function elimina_MateriaApoyo(materiaApoyo_div){
+            var tipo = materiaApoyo_div.parentElement;
+            tipo.removeChild(materiaApoyo_div);
+            var idMaterialDidactico_input = materiaApoyo_div.querySelector("input");
+            var idMaterialDidactico = idMaterialDidactico_input.value;
             var request = new XMLHttpRequest();
             request.open("post", "php/removeMaterialDidactico.php");
             var formData = new FormData();
@@ -128,7 +201,10 @@
 
             var request = new XMLHttpRequest();
             request.open("get", "php/getInfoMaterialDidactico.php");
-            request.send();
+            let data = new FormData();
+            let tipoSesion = sessionStorage.getItem("tipoSesion");
+            data.append("tipoSesion", tipoSesion);
+            request.send(data);
             request.onload = function(){
                 if(request.status != 200) {
                     alert(`Error: ${request.status}:: ${request.statusText}`);
@@ -145,22 +221,38 @@
                                 let tipo = e["tipo"];
                                 let rutaServidor = e["rutaServidor"];
                                 let estadoVisibilidad = e["estadoVisibilidad"];
-
+                                
+                                if (tipoSesion == "Alumno" && estadoVisibilidad == "oculto"){
+                                    return;
+                                }
                                 
                                 let div_plantilla_MaterialApoyo = document.createElement("div");
                                 div_plantilla_MaterialApoyo.innerHTML = plantilla_MaterialApoyo.innerHTML;
                                 let iframe = div_plantilla_MaterialApoyo.querySelector("iframe");
-                                let input_idMaterialDidactico = div_plantilla_MaterialApoyo.querySelector("input[name='idMaterialDidactico']");
+                                let input_idMaterialDidactico = div_plantilla_MaterialApoyo.querySelector("input");
                                 
                                 iframe.src = "./ViewerJS/#../materialApoyo/" + nombre;
                                 input_idMaterialDidactico.value = idMaterialDidactico;
+                                input_idMaterialDidactico.name = idMaterialDidactico;
                                 
                                 if (tipo == "vistoClase") {
                                     var material = document.querySelector(".vistos_en_clase");
                                 } else {
                                     var material = document.querySelector(".materialApoyo_archivos").querySelector(".externo");
                                 }
+
+                                div_plantilla_MaterialApoyo.classList = "plantilla_MaterialApoyo shadow p-3 mb-5 bg-white rounded _" + idMaterialDidactico;
+
+                                if(tipoSesion == "Alumno") {
+                                    let footer_plantilla_MaterialApoyo_div = div_plantilla_MaterialApoyo.querySelector(".footer_plantilla_MaterialApoyo");
+                                    div_plantilla_MaterialApoyo.removeChild(footer_plantilla_MaterialApoyo_div);
+                                }
                                 
+                                if(estadoVisibilidad == "oculto") {
+                                    input_idMaterialDidactico.innerText = "mostrar al alumno";
+                                }
+
+                                let toggleVisivilidad_input = div_plantilla_MaterialApoyo.querySelector("button");
                                 material.insertAdjacentElement("beforeend", div_plantilla_MaterialApoyo);
                             });
                         }
@@ -237,7 +329,7 @@
         function agrega_MaterialApoyo(name, tipo, idMaterialDidactico){
             let plantilla_MaterialApoyo = document.querySelector(".plantilla_MaterialApoyo");
             let iframe = plantilla_MaterialApoyo.querySelector("iframe");
-            let input_idMaterialDidactico = plantilla_MaterialApoyo.querySelector("input[name='idMaterialDidactico']");
+            let input_idMaterialDidactico = plantilla_MaterialApoyo.querySelector("input");
 
             input_idMaterialDidactico.value = idMaterialDidactico;
             iframe.src = "./ViewerJS/#../materialApoyo/" + name;

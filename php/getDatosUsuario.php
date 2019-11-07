@@ -23,7 +23,7 @@ $result = $conexion->query($query);
 $cad = $result->fetch_assoc();
 
 $response_to_client = json_decode($cad[$key], true);
-if($response_to_client["error"] == "undefined") {
+if(!isset($response_to_client["error"])) {
 
     $passwordUser = $response_to_client["password"];
     $passwordUser_Temp = $datosUsuario_Temp["Password"];

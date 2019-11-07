@@ -179,5 +179,5 @@ function agregaSesionUsuario(datos) {
 
 function cerrarSesionUsuario() {
     sessionStorage.removeItem("idSesion");
-    location.href = "/Biofisica/";
+    location.href = "/";
 }
