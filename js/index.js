@@ -7,7 +7,7 @@ function set_toastr_options() {
     toastr.options = {
         "closeButton": false,
         "newestOnTop": false,
-        "positionClass":"toast-bottom-center",
+        "positionClass": "toast-bottom-center",
         "showDuration": "300",
         "hideDuration": "1000",
         "timeOut": "5000",
@@ -27,26 +27,32 @@ function set_Navbar_porSesion() {
     // console.log(idSesion);
 
     if (idSesion != null) {
-        navbar_nav.innerHTML =
+        if(tipoSesion == "Profesor") {
+            navbar_nav.innerHTML =
             `
-            <li class='nav-item dropdown'>
-                <a class='nav-link dropdown-toggle' href='#' role='button' data-toggle='dropdown'>Material Apoyo</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="materialApoyo_archivos.html">Archivos</a>
-                    <a class="dropdown-item" href="materialApoyo_preguntas.html">Preguntas</a>
-                </div>
-            </li>
-        `;
-        if (tipoSesion == "Alumno") {
-            navbar_nav.innerHTML = navbar_nav.innerHTML +
-                `
-                <li class='nav-item'>
-                    <a class='nav-link' href='#'>Examenes</a>
+                <li class='nav-item dropdown'>
+                    <a class='nav-link dropdown-toggle' href='#' role='button' data-toggle='dropdown'>Material Apoyo</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="materialApoyo_archivos.html">Archivos</a>
+                        <a class="dropdown-item" href="materialApoyo_preguntas.html">Preguntas</a>
+                    </div>
+                </li>
+            `;
+        } else{
+            navbar_nav.innerHTML =
+            `
+                <li class='nav-item dropdown'>
+                    <a class='nav-link dropdown-toggle' href='#' role='button' data-toggle='dropdown'>Material Apoyo</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="materialApoyo_archivos.html">Archivos</a>
+                    </div>
                 </li>
             `;
         }
-        navbar_nav.innerHTML = navbar_nav.innerHTML +
-            `
+        navbar_nav.innerHTML = navbar_nav.innerHTML + `
+            <li class='nav-item'>
+                <a class='nav-link' href='#'>Examenes</a>
+            </li>
             <li class='nav-item'>
                 <!--configuracion del perfil-->
                 <a class='nav-link' href='#'>Configuracion</a>
@@ -57,7 +63,19 @@ function set_Navbar_porSesion() {
             </li>
         `;
     } else {
-        navbar_nav.innerHTML = "<li class='nav-item active'><!--boton de Inicio Sesion--><a class='nav-link' id='btn-InicioSesion' href='#' data-toggle='modal'data-target='#iniciarSesion'>Iniciar Sesion</a></li><li class='nav-item'><!--boton de Registrarse--><a class='nav-link' id='btn-Registro' href='#' data-toggle='modal'data-target='#Registro'>Registrarse</a></li>";
+        navbar_nav.innerHTML =
+        `
+            <li class='nav-item active'>
+                <!--boton de Inicio Sesion-->
+                <a class='nav-link' id='btn-InicioSesion' href='#' data-toggle='modal' data-target='#iniciarSesion'>
+                    IniciarSesion
+                </a>
+            </li>
+            <li class='nav-item'>
+                <!--boton de Registrarse-->
+                <a class='nav-link' id='btn-Registro' href='#' data-toggle='modal' data-target='#Registro'>Registrarse</a>
+            </li>
+        `;
     }
 }
 
@@ -115,7 +133,7 @@ function getInfoUsuario() {
             let infoResponse = JSON.parse(request.response);
 
             console.log(infoResponse);
-            
+
             if (infoResponse["error"] == undefined) {
                 $("#iniciarSesion").modal("hide");
                 agregaSesionUsuario(datos);

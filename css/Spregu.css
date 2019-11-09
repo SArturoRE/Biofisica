@@ -9,28 +9,10 @@
 {
     display: inline-block;
     text-align: center;
-    
-    /*modificamos los bordes*/
-    border-top: none;
-    border-right: solid .5px;
-    border-left: solid .5px;
 }
 /*Tratamos de alinar la x*/
 .eliminar_pregunta
 {
     display: flex; 
     justify-content: flex-end;
-    
-    border-top: solid .5px;
-    border-right: solid .5px;
-    border-left: solid .5px;
-    /*display: flex;
-    text-align: right;*/
-}
-/*informacion adicional*/
-.info_Adicional
-{
-    border-right: solid .5px;
-    border-left: solid .5px;
-    border-bottom: solid .5px;
 }
