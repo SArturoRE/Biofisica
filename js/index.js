@@ -51,7 +51,7 @@ function set_Navbar_porSesion() {
         }
         navbar_nav.innerHTML = navbar_nav.innerHTML + `
             <li class='nav-item'>
-                <a class='nav-link' href='#'>Examenes</a>
+                <a class='nav-link' href='examenes.html'>Examenes</a>
             </li>
             <li class='nav-item'>
                 <!--configuracion del perfil-->
