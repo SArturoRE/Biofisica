@@ -18,6 +18,9 @@ drop function if exists agrega_materialDidactico;
 drop function if exists removeMaterialDidactico;
 drop function if exists addSeccion;
 drop function if exists addAlumnoSeccion;
+drop function if exists addPregunta;
+drop function if exists addExamen;
+drop function if exists addExamenPregunta;
 
 -- 
 -- tablas
@@ -99,7 +102,6 @@ create table examen_pregunta(
     foreign key(idExamen) references examen(idExamen),
     foreign key(idPregunta) references pregunta(idPregunta)
 );
-
 
 -- 
 -- funciones
@@ -253,9 +255,35 @@ create function addPregunta(descripcionTemp varchar(200), r1Temp varchar(50), r2
 returns int
 begin
     declare idPreguntaTemp int;
-    insert into pregunta(descripcion, r1, r2, r3, respuestaCorrecta, unidad,)
-    values(descripcionTemp, r1Temp, r2Temp, r3Temp, respuestaCorrectaTemp, unidadTemp);
 
+    insert into pregunta(descripcion, r1, r2, r3, respuestaCorrecta, unidad)
+    values(descripcionTemp, r1Temp, r2Temp, r3Temp, respuestaCorrectaTemp, unidadTemp);
     select idPregunta into idPreguntaTemp from pregunta order by idPregunta desc limit 1;
+
     return idPreguntaTemp;
+end;
+
+create function addExamen(duracionTemp time, fechaAplicacionTemp datetime, fechaLimiteAplicacionTemp datetime)
+returns int
+begin
+    declare idExamenTemp int;
+
+    insert into examen(duracion, fechaAplicacion, fechaLimiteAplicacion)
+    values(duracionTemp, fechaAplicacionTemp, fechaLimiteAplicacionTemp);
+    select idExamen into idExamenTemp from examen order by idExamen desc limit 1;
+
+    return idExamenTemp;
+end;
+
+create function addExamenPregunta(idExamenTemp int, descripcionTemp varchar(200), r1Temp varchar(50), r2Temp varchar(50), r3Temp varchar(50), respuestaCorrectaTemp varchar(50), unidadTemp int)
+returns int
+begin
+    declare idPreguntaTemp int;
+
+    set idPreguntaTemp = addPregunta(descripcionTemp, r1Temp, r2Temp, r3Temp, respuestaCorrectaTemp, unidadTemp);
+    
+    insert into examen_pregunta(idExamen, idPregunta)
+    values(idExamenTemp, idPreguntaTemp);
+    
+    return 1;
 end;

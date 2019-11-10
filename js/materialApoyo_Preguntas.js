@@ -1,4 +1,4 @@
-window.onload = function(){
+window.onload = function () {
     agregaPregunta();
     let tipoSesion = sessionStorage.getItem("tipoSesion");
     if (tipoSesion != "Profesor") {
@@ -25,6 +25,72 @@ function eliminarPregunta(span) {
     }
 }
 
+function cambiaInputSeccionExamen(checkbox) {
+    let input_seccion_examen = document.querySelector(".input-seccion-examen");
+    let input_duracion_examen = document.querySelector(".input-duracion-examen");
+    let input_fechaAplicacion_examen = document.querySelector(".input-fechaAplicacion-examen");
+    let input_fechaLimiteAplicacion_examen = document.querySelector(".input-fechaLimiteAplicacion-examen");
+    if (checkbox.checked) {
+        input_seccion_examen.disabled = false;
+        input_seccion_examen.required = true;
 
-function submit(){
+        input_duracion_examen.disabled = false;
+        input_duracion_examen.required = true;
+        
+        input_fechaAplicacion_examen.disabled = false;
+        input_fechaAplicacion_examen.required = true;
+
+        input_fechaLimiteAplicacion_examen.disabled = false;
+        input_fechaLimiteAplicacion_examen.required = true;
+    } else {
+        input_seccion_examen.disabled = true;
+        input_seccion_examen.required = false;
+
+        input_duracion_examen.disabled = true;
+        input_duracion_examen.required = false;
+
+        input_fechaAplicacion_examen.disabled = true;
+        input_fechaAplicacion_examen.required = false;
+
+        input_fechaLimiteAplicacion_examen.disabled = true;
+        input_fechaLimiteAplicacion_examen.required = false;
+    }
+}
+
+function getData(form) {
+    let preguntas_div = form.querySelectorAll(".body_formulario_preguntas .container");
+    let preguntasParaExamen_input = form.querySelector(".footer input[name='PreguntasParaExamen']");
+    let seccionExamen_input = form.querySelector(".footer input[name='SeccionExamen']");
+    let DuracionExamen_input = form.querySelector(".footer input[name='DuracionExamen']");
+    let FechaAplicacionExamen_input = form.querySelector(".footer input[name='FechaAplicacionExamen']");
+    let FechaLimiteAplicacionExamen_input = form.querySelector(".footer input[name='FechaLimiteAplicacionExamen']");
+    let data=[];
+
+    data.push({
+        PreguntasParaExamen: preguntasParaExamen_input.checked,
+        SeccionExamen: seccionExamen_input.value,
+        DuracionExamen: DuracionExamen_input.value,
+        FechaAplicacionExamen: FechaAplicacionExamen_input.value,
+        FechaLimiteAplicacionExamen: FechaLimiteAplicacionExamen_input.value
+    });
+    console.log(preguntasParaExamen_input.checked);
+    preguntas_div.forEach(pregunta_div => {
+        let data_elements = pregunta_div.querySelectorAll("input, select, textarea");
+        let data_temp = {};
+        data_elements.forEach(data_element => {
+            data_temp[data_element.name] = data_element.value;
+        });
+        data.push(data_temp);
+    });
+
+    let request = new XMLHttpRequest();
+    request.open("POST", "php/addInfoPreguntas.php");
+    request.send(JSON.stringify(data));
+    request.onload = function () {
+        if(request.status != 200){
+            console.log(`error:${request.status} :: ${request.statusText}`);
+        } else{
+            console.log(request.responseText);
+        }
+    };
 }
