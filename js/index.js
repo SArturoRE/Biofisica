@@ -90,9 +90,9 @@ function muestra_oculta_campos_formularios() {
                 e.style.display = "";
             });
             if (radio.value === "alumno") {
-                div.innerHTML = "<div class='col-5'><label for=''>Matricula</label><br></div><div class='col-7'><input pattern='[0-9]+' name='Matricula' required><br></div>"
+                div.innerHTML = "<div class='col-5'><label for=''>Matricula</label><br></div><div class='col-7'><input pattern='[0-9]+' class='form-control' name='Matricula' required><br></div>"
             } else {
-                div.innerHTML = "<div class='col-5'><label for=''>Numero Trabajador</label><br></div><div class='col-7'><input pattern='[0-9]+' name='numTrabajador' required><br></div>"
+                div.innerHTML = "<div class='col-5'><label for=''>Numero Trabajador</label><br></div><div class='col-7'><input pattern='[0-9]+' class='form-control' name='numTrabajador' required><br></div>"
             }
         });
     });
@@ -104,9 +104,9 @@ function muestra_oculta_campos_formularios() {
                 e.style.display = "";
             });
             if (radio.value === "alumno") {
-                div.innerHTML = "<div class='col-5'><label for=''>Matricula</label><br></div><div class='col-7'><input pattern='[0-9]+' name='Matricula' required><br></div>"
+                div.innerHTML = "<div class='col-5'><label for=''>Matricula</label></div><div class='col-7'><input pattern='[0-9]+' class='form-control' name='Matricula' required></div>"
             } else {
-                div.innerHTML = "<div class='col-5'><label for=''>Numero Trabajador</label><br></div><div class='col-7'><input pattern='[0-9]+' name='numTrabajador' required><br></div>"
+                div.innerHTML = "<div class='col-5'><label for=''>Numero Trabajador</label></div><div class='col-7'><input pattern='[0-9]+' class='form-control' name='numTrabajador' required></div>"
             }
         });
     });
@@ -165,11 +165,11 @@ function addInfoUsuario() {
         if (request.status != 200) {
             alert(`Error ${request.status}: ${request.statusText}`);
         } else {
+            console.log(request.response);
             let infoResponse = JSON.parse(request.response);
-
             console.log(infoResponse);
 
-            if (infoResponse["error"] == undefined) {
+            if (infoResponse["error"] == undefined || infoResponse["error"] == "") {
 
                 agregaSesionUsuario(datos);
                 $("#Registro").modal("hide");

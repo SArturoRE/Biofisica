@@ -7,7 +7,7 @@ $datosUsuario = json_decode(file_get_contents("php://input"), true);
 $password_Temp = $datosUsuario["PasswordConfirm"];
 $password = $datosUsuario["Password"];
 
-if ($password_Temp != $password){
+if ($password_Temp != $password) {
     $response_to_usuario["error"] = "verifica las contraseñas ingresadas";
     echo json_encode($response_to_usuario);
     exit;
@@ -15,12 +15,14 @@ if ($password_Temp != $password){
 
 $conexion = getConexionDB();
 
-$nombre = $datosUsuario["Nombre"];
-$apellidoM = $datosUsuario["ApellidoM"];
-$apellidoP = $datosUsuario["ApellidoP"];
-$grupo = $datosUsuario["Grupo"];
+$nombre = trim($datosUsuario["Nombre"]);
+$apellidoM = trim($datosUsuario["ApellidoM"]);
+$apellidoP = trim($datosUsuario["ApellidoP"]);
+$grupo = trim($datosUsuario["Grupo"]);
+$secciones = str_replace(" ", "", $datosUsuario["Secciones"]);
+$secciones = explode(",", $secciones);
 
-if ( isset($datosUsuario["Matricula"]) ) {
+if (isset($datosUsuario["Matricula"])) {
 
     $matricula = $datosUsuario["Matricula"];
     $key = "agregaAlumno(
@@ -33,7 +35,7 @@ if ( isset($datosUsuario["Matricula"]) ) {
     )";
     $query = "select $key";
 } else {
-    
+
     $numTrabajador = $datosUsuario["numTrabajador"];
     $key = "agregaProfesor(
         '$nombre',
@@ -48,8 +50,39 @@ if ( isset($datosUsuario["Matricula"]) ) {
 
 $result = $conexion->query($query);
 $info = $result->fetch_assoc();
-
-echo json_encode(json_decode($info[$key]));
-
+$info = json_decode($info[$key], true);
 $result->free();
+
+if (isset($info["error"])) {
+    echo json_encode($info);
+    $conexion->close();
+    exit;
+}
+$info["error"] = "";
+
+if (isset($datosUsuario["Matricula"])) {
+    foreach ($secciones as $seccion) {
+        $key = "addAlumnoSeccion($matricula,'$seccion')";
+        $query = "select $key";
+        $result = $conexion->query($query);
+        $res = $result->fetch_assoc();
+        $res = json_decode($res[$key], true);
+        if (isset($res["error"])) {
+            $info["error"] .= "<br>" . $res["error"];
+        }
+    }
+} else {
+    foreach ($secciones as $seccion) {
+        $key = "addSeccion($numTrabajador,'$seccion')";
+        $query = "select $key";
+        $result = $conexion->query($query);
+        $res = $result->fetch_assoc();
+        $res = json_decode($res[$key], true);
+        if (isset($res["error"])) {
+            $info["error"] .= "<br>" . $res["error"];
+        }
+    }
+}
+
+echo json_encode($info);
 $conexion->close();

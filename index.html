@@ -20,7 +20,7 @@
     <!--toastr-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    
+
     <!-- slider -->
     <link rel="stylesheet" href="css/slick.css">
     <link rel="stylesheet" href="css/slick-theme.css">
@@ -81,50 +81,60 @@
                             </div>
                             <div class="row elementoOculto_Registro" style="display: none;">
                                 <div class="col-5">
-                                    <label for="">Nombre</label><br>
+                                    <label for="">Nombre</label>
                                 </div>
                                 <div class="col-7">
-                                    <input type="text" name="Nombre"><br>
+                                    <input type="text" class="form-control" name="Nombre">
                                 </div>
                             </div>
                             <div class="row elementoOculto_Registro" style="display: none;">
                                 <div class="col-5">
-                                    <label for="">Apellido Paterno</label><br>
+                                    <label for="">Apellido Paterno</label>
                                 </div>
                                 <div class="col-7">
-                                    <input type="text" name="ApellidoP"><br>
+                                    <input type="text" class="form-control" name="ApellidoP">
                                 </div>
                             </div>
                             <div class="row elementoOculto_Registro" style="display: none;">
                                 <div class="col-5">
-                                    <label for="">Apellido Materno</label><br>
+                                    <label for="">Apellido Materno</label>
                                 </div>
                                 <div class="col-7">
-                                    <input type="text" name="ApellidoM"><br>
+                                    <input type="text" class="form-control" name="ApellidoM">
                                 </div>
                             </div>
                             <div class="row elementoOculto_Registro" style="display: none;">
                                 <div class="col-5">
-                                    <label for="">Contraseña</label><br>
+                                    <label for="">Contraseña</label>
                                 </div>
                                 <div class="col-7">
-                                    <input type="password" name="Password"><br>
+                                    <input type="password" class="form-control" name="Password">
                                 </div>
                             </div>
                             <div class="row elementoOculto_Registro" style="display: none;">
                                 <div class="col-5">
-                                    <label for="">Confirmar Contraseña</label><br>
+                                    <label for="">Confirmar Contraseña</label>
                                 </div>
                                 <div class="col-7">
-                                    <input type="password" name="PasswordConfirm"><br>
+                                    <input type="password" class="form-control" name="PasswordConfirm">
                                 </div>
                             </div>
                             <div class="row elementoOculto_Registro" style="display: none;">
                                 <div class="col-5">
-                                    <label for="">Grupo</label><br>
+                                    <label for="">Grupo</label>
                                 </div>
                                 <div class="col-7">
-                                    <input type="text" name="Grupo"><br>
+                                    <input type="text" class="form-control" name="Grupo">
+                                </div>
+                            </div>
+                            <div class="row elementoOculto_Registro" style="display: none;">
+                                <div class="col-5">
+                                    <label for="">Seccion/es</label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" class="form-control" pattern="[A-Z0-9,\s]+"
+                                        onkeyup="this.value = this.value.toUpperCase();"
+                                        placeholder="seccion1,seccion2,seccion3..." name="Secciones">
                                 </div>
                             </div>
                             <div class="row" style="display: flex; justify-content: center;">
@@ -137,7 +147,8 @@
                                             <label for="">Alumno</label>
                                         </div>
                                         <div class="col-6">
-                                            <input type="radio" value="alumno" name="tipoUsuario_radio_Registro">
+                                            <input type="radio" class="form-control" value="alumno"
+                                                name="tipoUsuario_radio_Registro">
                                         </div>
                                     </div>
                                 </div>
@@ -147,7 +158,8 @@
                                             <label for="">Profesor</label>
                                         </div>
                                         <div class="col-6">
-                                            <input type="radio" value="profesor" name="tipoUsuario_radio_Registro">
+                                            <input type="radio" class="form-control" value="profesor"
+                                                name="tipoUsuario_radio_Registro">
                                         </div>
                                     </div>
                                 </div>
@@ -182,10 +194,10 @@
                             </div>
                             <div class="row elementoOculto_IniciaSesion" style="display: none;">
                                 <div class="col-5">
-                                    <label for="">Contraseña</label><br>
+                                    <label for="">Contraseña</label>
                                 </div>
                                 <div class="col-7">
-                                    <input type="password" name="Password" required><br>
+                                    <input type="password" class='form-control' name="Password" required>
                                 </div>
                             </div>
                             <div class="row" style="display: flex; justify-content: center;">
@@ -198,7 +210,8 @@
                                             <label for="">Alumno</label>
                                         </div>
                                         <div class="col-6">
-                                            <input type="radio" value="alumno" name="tipoUsuario_radio_iniciaSesion">
+                                            <input type="radio" class='form-control' value="alumno"
+                                                name="tipoUsuario_radio_iniciaSesion">
                                         </div>
                                     </div>
                                 </div>
@@ -208,7 +221,8 @@
                                             <label for="">Profesor</label>
                                         </div>
                                         <div class="col-6">
-                                            <input type="radio" value="profesor" name="tipoUsuario_radio_iniciaSesion">
+                                            <input type="radio" class='form-control' value="profesor"
+                                                name="tipoUsuario_radio_iniciaSesion">
                                         </div>
                                     </div>
                                 </div>
@@ -249,9 +263,9 @@
                 <p>
                     Esta es una pagina para apoyar la materia de biofisica, de la facultad de ciencias quemicas
                     impartida
-                    por la profesora Esther Lara. <br>
+                    por la profesora Esther Lara. 
                     En esta pagina podras responder examenes. Podras consultar material de apoyo facilitado por la
-                    profesora, <br>asi como generar un examenes
+                    profesora, asi como generar un examenes
                     de diagnostico con los cuales podras estudiar.
                 </p>
             </div>

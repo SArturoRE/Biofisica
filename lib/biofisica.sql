@@ -1,7 +1,13 @@
+drop table if exists alumno_seccion;
+drop table if exists examen_seccion;
+drop table if exists seccion;
 drop table if exists alumno;
 drop table if exists profesor;
 drop table if exists usuario;
 drop table if exists materialDidactico;
+drop table if exists examen_pregunta;
+drop table if exists examen;
+drop table if exists pregunta;
 
 drop function if exists agregaAlumno;
 drop function if exists agregaProfesor;
@@ -10,7 +16,9 @@ drop function if exists profesorRegistrado;
 drop function if exists getInfousuario;
 drop function if exists agrega_materialDidactico;
 drop function if exists removeMaterialDidactico;
--- drop function if exists getInfoMaterialDidactico;
+drop function if exists addSeccion;
+drop function if exists addAlumnoSeccion;
+
 -- 
 -- tablas
 -- 
@@ -44,6 +52,54 @@ create table materialDidactico(
     estadoVisibilidad varchar(20) not null
 );
 
+create table seccion(
+    idSeccion int primary key auto_increment,
+    numTrabajador int not null,
+    nomSeccion varchar(30) not null,
+    foreign key(numTrabajador) references profesor(numTrabajador)
+);
+
+create table alumno_seccion(
+    id int primary key auto_increment,
+    matricula int not null,
+    idSeccion int not null,
+    foreign key(matricula) references alumno(matricula),
+    foreign key(idSeccion) references seccion(idSeccion)
+);
+
+create table examen(
+    idExamen int primary key auto_increment,
+    duracion time not null,
+    fechaAplicacion datetime not null,
+    fechaLimiteAplicacion datetime not null
+);
+
+create table examen_seccion(
+    id int auto_increment primary key not null,
+    idExamen int not null,
+    idSeccion int not null,
+    foreign key(idExamen) references examen(idExamen),
+    foreign key(idSeccion) references seccion(idSeccion)
+);
+
+create table pregunta(
+    idPregunta int auto_increment primary key,
+    descripcion varchar(200) not null,
+    r1 varchar(50) not null,
+    r2 varchar(50) not null,
+    r3 varchar(50) not null,
+    respuestaCorrecta varchar(50) not null,
+    unidad int not null
+);
+
+create table examen_pregunta(
+    id int auto_increment primary key,
+    idExamen int not null,
+    idPregunta int not null,
+    foreign key(idExamen) references examen(idExamen),
+    foreign key(idPregunta) references pregunta(idPregunta)
+);
+
 
 -- 
 -- funciones
@@ -63,7 +119,7 @@ begin
         insert into alumno(matricula, idUsuario) values(matricula, idUsuario_temp);
         set estado = json_object("success", "informacion guardada exitosamente");
     else
-        set estado = json_object("error", "usuario con la matricula ingresada ya se encuentra registrado");
+        set estado = json_object("error", concat("usuario con la matricula: ",matricula,", ya se encuentra registrado"));
     end if;
     return estado;
 end;
@@ -82,7 +138,7 @@ begin
         insert into profesor(numTrabajador, idUsuario) values(numTrabajador, idUsuario_temp);
         set estado = json_object("success", "informacion guardada exitosamente");
     else
-        set estado = json_object("error", "usuario con el numero de trabajdor ingresado ya se encuentra registrado");
+        set estado = json_object("error", concat("usuario con el numero de trabajador: ",numTrabajador,", ya se encuentra registrado"));
     end if;
     return estado;
 end;
@@ -96,7 +152,7 @@ begin
     select idUsuario into idUsuario_temp from alumno where alumno.matricula=matricula;  
 
     if idUsuario_temp is null then
-        set datos = json_object("error","alumno con la matricula proporcionada no registrado");
+        set datos = json_object("error",concat("alumno con la matricula: ",matricula,", no registrado"));
     else
         set datos = getInfousuario(idUsuario_temp);
     end if;
@@ -113,7 +169,7 @@ begin
     select idUsuario into idUsuario_temp from profesor where profesor.numTrabajador=numTrabajador;  
 
     if idUsuario_temp is null then
-        set datos = json_object("error","profesor con el numero de trabajador proporcionadp no registrado");
+        set datos = json_object("error",concat("profesor con el numero de trabajador: ",numTrabajador,", no registrado"));
     else
         set datos = getInfousuario(idUsuario_temp);
     end if;
@@ -152,23 +208,54 @@ begin
     return 1;
 end;
 
--- create function getInfoMaterialDidactico()
--- returns json
--- begin
---     declare datos json;
+create function addSeccion(numTrabajadorTemp int, nomSeccionTemp varchar(30))
+returns json
+begin
+    declare response json;
+    declare idSeccionTemp int;
 
---     select json_object(
---         'idMaterialDidactico', idMaterialDidactico,
---         'nombre', nombre,
---         'tipo', tipo,
---         'rutaServidor', rutaServidor,
---         'estadoVisibilidad', estadoVisibilidad
---     ) into datos
---     from materialDidactico;
+    select idSeccion into idSeccionTemp
+    from seccion
+    where nomSeccion=nomSeccionTemp;
 
---     if datos is null then
---         set datos = json_object();
---     end if;
-    
---     return datos;
--- end;
+    if idSeccionTemp is null then
+        insert into seccion(numTrabajador ,nomSeccion) values(numTrabajadorTemp, nomSeccionTemp);
+    else
+        set response = json_object("error", concat("la seccion con el nombre: ", nomSeccionTemp, ", ya se encuentra registrada"));
+    end if;
+    return response;
+end;
+
+create function addAlumnoSeccion(matriculaTemp int, nomSeccionTemp varchar(30))
+returns json
+begin
+    declare response json;
+    declare idSeccionTemp int;
+    declare idUsuarioTemp int;
+
+    select idSeccion into idSeccionTemp
+    from seccion
+    where nomSeccion=nomSeccionTemp;
+
+    if idSeccionTemp is null then
+        set response = json_object("error", concat("la seccion con el nombre: ", nomSeccionTemp, ", no esta registrada"));
+        select idUsuario into idUsuarioTemp from alumno where matricula=matriculaTemp; 
+        delete from alumno where matricula=matriculaTemp;
+        delete from usuario where idUsuario=idUsuarioTemp;
+        delete from alumno_seccion where matricula=matriculaTemp;
+    else
+        insert into alumno_seccion(matricula ,idSeccion) values(matriculaTemp, idSeccionTemp);
+    end if;
+    return response;
+end;
+
+create function addPregunta(descripcionTemp varchar(200), r1Temp varchar(50), r2Temp varchar(50), r3Temp varchar(50), respuestaCorrectaTemp varchar(50), unidadTemp int)
+returns int
+begin
+    declare idPreguntaTemp int;
+    insert into pregunta(descripcion, r1, r2, r3, respuestaCorrecta, unidad,)
+    values(descripcionTemp, r1Temp, r2Temp, r3Temp, respuestaCorrectaTemp, unidadTemp);
+
+    select idPregunta into idPreguntaTemp from pregunta order by idPregunta desc limit 1;
+    return idPreguntaTemp;
+end;
