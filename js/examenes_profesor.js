@@ -62,3 +62,53 @@ function getInfoExamenes(){
         }
     }
 }
+
+function submitData(form) {
+    let inputs = form.querySelectorAll("input");
+    let data = {};
+
+    inputs.forEach(input => {
+        data[input.name] = input.value;
+    });
+    data["idProfesor"] = sessionStorage.getItem("idSesion");
+
+    let request = new XMLHttpRequest();
+    request.open("post", "php/addNewExamen_preguntasAleatorias.php");
+    request.send(JSON.stringify(data));
+    request.onload = function () {
+        if (request.status != 200) {
+            console.log(`error:${request.status} :: ${request.statusText}`);
+        } else {
+            console.log(request.responseText);
+            let data = JSON.parse(request.responseText);
+            console.log(data);
+
+            if (data["error"] != undefined) {
+                toastr.error(data["error"], 'Error!');
+            } else {
+                form.reset();
+
+                let examenes_por_aplicar_table_body = document.querySelector(".examenes-por-aplicar table tbody");
+                let tr = document.createElement("tr");
+                let idExamen_td = document.createElement("td");
+                let nomSeccion_td = document.createElement("td");
+                let duracion_td = document.createElement("td");
+                let fechaAplicacion_td = document.createElement("td");
+                let fechaLimiteAplicacion_td = document.createElement("td");
+                
+                idExamen_td.innerText = data["idExamen"];
+                nomSeccion_td.innerText = data["nomSeccion"];
+                duracion_td.innerText = data["duracion"];
+                fechaAplicacion_td.innerText = data["fechaAplicacion"];
+                fechaLimiteAplicacion_td.innerText = data["fechaLimiteAplicacion"];
+
+                tr.appendChild(idExamen_td);
+                tr.appendChild(nomSeccion_td);
+                tr.appendChild(duracion_td);
+                tr.appendChild(fechaAplicacion_td);
+                tr.appendChild(fechaLimiteAplicacion_td);
+                examenes_por_aplicar_table_body.appendChild(tr);
+            }
+        }
+    };
+}

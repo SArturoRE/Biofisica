@@ -24,7 +24,7 @@ $result = $conexion->query($query);
 // echo $query;
 // print_r($conexion->error);
 
-while(($row = $result->fetch_assoc())){
+while (($row = $result->fetch_assoc())) {
     array_push($dataResponse["porAplicar"], $row);
 }
 $result->free();
@@ -68,7 +68,6 @@ while (($row = $result->fetch_assoc())) {
     array_push($dataResponse["aplicados"], $row);
 }
 $result->free();
-
 
 echo json_encode($dataResponse);
 

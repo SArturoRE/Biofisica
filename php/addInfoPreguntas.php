@@ -52,8 +52,8 @@ foreach ($datosPreguntas as $datosPregunta) {
     } else if (!isset($datosPregunta["B"])) {
 
         $r1 = $datosPregunta["A"];
-        $r2 = $datosPregunta["B"];
-        $r3 = $datosPregunta["C"];
+        $r2 = $datosPregunta["C"];
+        $r3 = $datosPregunta["D"];
     } else if (!isset($datosPregunta["C"])) {
 
         $r1 = $datosPregunta["A"];

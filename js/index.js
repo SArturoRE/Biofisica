@@ -51,7 +51,7 @@ function set_Navbar_porSesion() {
                     </div>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='examenes.html'>Examenes</a>
+                    <a class='nav-link' href='examenes_Alumno.html'>Examenes</a>
                 </li>
             `;
         }

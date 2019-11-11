@@ -244,9 +244,9 @@ begin
     if idSeccionTemp is null then
         set response = json_object("error", concat("la seccion con el nombre: ", nomSeccionTemp, ", no esta registrada"));
         select idUsuario into idUsuarioTemp from alumno where matricula=matriculaTemp; 
+        delete from alumno_seccion where matricula=matriculaTemp;
         delete from alumno where matricula=matriculaTemp;
         delete from usuario where idUsuario=idUsuarioTemp;
-        delete from alumno_seccion where matricula=matriculaTemp;
     else
         insert into alumno_seccion(matricula ,idSeccion) values(matriculaTemp, idSeccionTemp);
     end if;

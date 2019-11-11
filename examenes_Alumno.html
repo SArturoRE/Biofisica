@@ -8,7 +8,7 @@
     <title>Examenes</title>
 
     <!--examenes_profesor-->
-    <script src="js/examenes_profesor.js"></script>
+    <script src="js/examenes_alumno.js"></script>
     <!-- indexJS -->
     <script src="js/index.js"></script>
 
@@ -54,91 +54,6 @@
         </div>
     </nav>
     <div class="examenes container" style="margin: 10vh auto;">
-        <div class="row d-flex justify-content-center">
-            <div class="col-7 p-5 m-1 shadow bg-white rounded">
-                <div class="title" style="text-align: center;">
-                    <h1>
-                        Generar Nuevo Examen con Preguntas Aleatorias
-                    </h1>
-                </div>
-                <div class="body">
-                    <form onsubmit="event.preventDefault(); submitData(this);">
-                        <div class="row">
-                            <div class="col-4">
-                                <label class="d-flex justify-content-end" for="">Seccion</label>
-                            </div>
-                            <div class="col-8">
-                                <input required type="text" class="form-control" pattern="[A-Z0-9]+"
-                                    onkeyup="this.value = this.value.toUpperCase();" name="SeccionExamen">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <label class="d-flex justify-content-end" for="">Duracion</label>
-                            </div>
-                            <div class="col-8">
-                                <input required name="DuracionExamen" pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}"
-                                    placeholder="hh:mm:ss" type="text" class="form-control input-duracion-examen" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <label class="d-flex justify-content-end" for="">Fecha de Aplicacion</label>
-                            </div>
-                            <div class="col-8">
-                                <input required name="FechaAplicacionExamen" type="text"
-                                    class="form-control datetimepicker-input input-fechaAplicacion-examen"
-                                    id="input-fechaAplicacion-examen" data-toggle="datetimepicker"
-                                    data-target="#input-fechaAplicacion-examen" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <label class="d-flex justify-content-end" for="">FechaLimiteAplicacion</label>
-                            </div>
-                            <div class="col-8">
-                                <input required name="FechaLimiteAplicacionExamen" type="text"
-                                    class="form-control datetimepicker-input input-fechaLimiteAplicacion-examen"
-                                    id="input-fechaLimiteAplicacion-examen" data-toggle="datetimepicker"
-                                    data-target="#input-fechaLimiteAplicacion-examen" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <label for="" class="d-flex justify-content-end">Numero de Preguntas</label>
-                            </div>
-                            <div class="col-8">
-                                <input required type="number" min="1" max="50" class="form-control" name="NumPreguntas">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <label for="" class="d-flex justify-content-end">Unidad</label>
-                            </div>
-                            <div class="col-8">
-                                <input required type="number" min="1" class="form-control" name="Unidad">
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary">generar</button>
-                        </div>
-                    </form>
-                    <script type="text/javascript">
-                        $(function () {
-
-                            $('#input-fechaAplicacion-examen').datetimepicker({
-                                format: "YYYY/MM/DD HH:mm:ss",
-                                minDate: moment().add(1, "hours")
-                            });
-                            $('#input-fechaLimiteAplicacion-examen').datetimepicker({
-                                format: "YYYY/MM/DD HH:mm:ss",
-                                minDate: moment().add(2, "hours")
-                            });
-                        });
-                    </script>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col">
                 <div class="examenes-en-aplicacion p-1 m-1 shadow bg-white rounded">
@@ -153,6 +68,7 @@
                                 <th>Duracion</th>
                                 <th>Fecha Aplicacion</th>
                                 <th>Fecha Limite Aplicacion</th>
+                                <th>Profesor</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -174,6 +90,7 @@
                                 <th>Duracion</th>
                                 <th>Fecha Aplicacion</th>
                                 <th>Fecha Limite Aplicacion</th>
+                                <th>Profesor</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -194,6 +111,7 @@
                                 <th>Duracion</th>
                                 <th>Fecha Aplicacion</th>
                                 <th>Fecha Limite Aplicacion</th>
+                                <th>Profesor</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -201,6 +119,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="respondeExamen" hidden>
+
     </div>
 
 </body>
