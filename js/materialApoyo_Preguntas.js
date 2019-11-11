@@ -65,15 +65,16 @@ function getData(form) {
     let FechaAplicacionExamen_input = form.querySelector(".footer input[name='FechaAplicacionExamen']");
     let FechaLimiteAplicacionExamen_input = form.querySelector(".footer input[name='FechaLimiteAplicacionExamen']");
     let data=[];
+    let idProfesor = sessionStorage.getItem("idSesion");
 
     data.push({
+        idProfesor: idProfesor,
         PreguntasParaExamen: preguntasParaExamen_input.checked,
         SeccionExamen: seccionExamen_input.value,
         DuracionExamen: DuracionExamen_input.value,
         FechaAplicacionExamen: FechaAplicacionExamen_input.value,
         FechaLimiteAplicacionExamen: FechaLimiteAplicacionExamen_input.value
     });
-    console.log(preguntasParaExamen_input.checked);
     preguntas_div.forEach(pregunta_div => {
         let data_elements = pregunta_div.querySelectorAll("input, select, textarea");
         let data_temp = {};
@@ -91,6 +92,14 @@ function getData(form) {
             console.log(`error:${request.status} :: ${request.statusText}`);
         } else{
             console.log(request.responseText);
+            let data = JSON.parse(request.responseText);
+            console.log(data);
+
+            if(data["error"] != undefined){
+                toastr.error(data["error"], 'Error!');
+            } else{
+                location.href = "/materialApoyo_preguntas.html";
+            }
         }
     };
 }

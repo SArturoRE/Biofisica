@@ -21,6 +21,8 @@ drop function if exists addAlumnoSeccion;
 drop function if exists addPregunta;
 drop function if exists addExamen;
 drop function if exists addExamenPregunta;
+drop function if exists getInfoSeccion;
+drop function if exists addExamenSeccion;
 
 -- 
 -- tablas
@@ -286,4 +288,22 @@ begin
     values(idExamenTemp, idPreguntaTemp);
     
     return 1;
+end;
+
+create function addExamenSeccion(idExamenTemp int, nomSeccionTemp varchar(50), idProfesor int)
+returns json
+begin
+    declare response json;
+    declare idSeccionTemp int;
+    
+    select idSeccion into idSeccionTemp from seccion where nomSeccion=nomSeccionTemp and numTrabajador=idProfesor;
+
+    if idSeccionTemp is null then
+        set response = json_object("error", concat("la seccion con el nombre: ",nomSeccionTemp,", no esta registrada para el profesor con la sesion actual"));
+        delete from examen where idExamen=idExamenTemp;
+    else
+        insert into examen_seccion(idExamen, idSeccion) values(idExamenTemp, idSeccionTemp);
+    end if;
+
+    return response;
 end;

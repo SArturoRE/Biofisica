@@ -37,6 +37,9 @@ function set_Navbar_porSesion() {
                         <a class="dropdown-item" href="materialApoyo_preguntas.html">Preguntas</a>
                     </div>
                 </li>
+                <li class='nav-item'>
+                    <a class='nav-link' href='examenes_Profesor.html'>Examenes</a>
+                </li>
             `;
         } else{
             navbar_nav.innerHTML =
@@ -47,12 +50,12 @@ function set_Navbar_porSesion() {
                         <a class="dropdown-item" href="materialApoyo_archivos.html">Archivos</a>
                     </div>
                 </li>
+                <li class='nav-item'>
+                    <a class='nav-link' href='examenes.html'>Examenes</a>
+                </li>
             `;
         }
         navbar_nav.innerHTML = navbar_nav.innerHTML + `
-            <li class='nav-item'>
-                <a class='nav-link' href='examenes.html'>Examenes</a>
-            </li>
             <li class='nav-item'>
                 <!--configuracion del perfil-->
                 <a class='nav-link' href='#'>Configuracion</a>
