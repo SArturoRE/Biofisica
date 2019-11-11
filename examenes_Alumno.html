@@ -34,7 +34,19 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 
-
+    <style>
+        .preguntas {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+    
+        /*formulario de preguntas*/
+        .body_Pregunta {
+            display: inline-block;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -120,8 +132,82 @@
             </div>
         </div>
     </div>
-    <div class="respondeExamen" hidden>
-
+    <div class="plantilla_pregunta" hidden>
+        <div class="container shadow p-5 m-5 bg-white rounded">
+            <div class="body_Pregunta row">
+                <div class="col">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="">Pregunta:</label>
+                        </div>
+                        <div class="col-9">
+                            <textarea readonly required class="form-control" name="Descripcion" cols="30" rows="5"
+                                placeholder="Escriba aqui su pregunta"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="">Posibles Respuestas:</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <label for="">a)</label>
+                        </div>
+                        <div class="col-10">
+                            <input readonly class="form-control" type="text" name="A" required value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <label for="">b)</label>
+                        </div>
+                        <div class="col-10">
+                            <input readonly class="form-control" type="text" name="B" required value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <label for="">c)</label>
+                        </div>
+                        <div class="col-10">
+                            <input readonly class="form-control" type="text" name="C" required value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <label for="">d)</label>
+                        </div>
+                        <div class="col-10">
+                            <input readonly class="form-control" type="text" name="D" required value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="">Respuesta Correcta: </label>
+                        </div>
+                        <div class="col">
+                            <select class="form-control" name="RespuestaSeleccionada" required>
+                                <option value="" disabled selected hidden>seleciona una opcion..</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="respondeExamen" style="margin: 10vh auto;" hidden>
+        <form onsubmit="event.preventDefault(); enviaRespuestas();">
+            <div class="title" style="display: flex; justify-content: center;"></div>
+            <div class="preguntas"></div>
+            <div class="footer" style="display: flex; justify-content: center;">
+                <button type="submit" class="btn btn-primary">enviar respuestas</button>
+            </div>
+        </form>
     </div>
 
 </body>

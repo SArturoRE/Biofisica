@@ -1,6 +1,7 @@
 drop table if exists alumno_seccion;
 drop table if exists examen_seccion;
 drop table if exists seccion;
+drop table if exists historialRespuestas;
 drop table if exists alumno;
 drop table if exists profesor;
 drop table if exists usuario;
@@ -102,6 +103,15 @@ create table examen_pregunta(
     idExamen int not null,
     idPregunta int not null,
     foreign key(idExamen) references examen(idExamen),
+    foreign key(idPregunta) references pregunta(idPregunta)
+);
+
+create table historialRespuestas(
+    id int auto_increment primary key,
+    idPregunta int not null,
+    matricula int not null,
+    respuestaSeleccionada varchar(50) not null,
+    foreign key(matricula) references alumno(matricula),
     foreign key(idPregunta) references pregunta(idPregunta)
 );
 

@@ -39,10 +39,11 @@ if(isset($info["error"])){
 // obtiene $NumPreguntas aleatorias del banco de preguntas
 
 $query = "
-    select idPregunta from pregunta where unidad=$Unidad limit $NumPreguntas
+    select idPregunta from pregunta where unidad=$Unidad order by rand() limit $NumPreguntas
 ";
 
 $result = $conexion->query($query);
+print_r($conexion->error);
 
 $query = "insert into examen_pregunta(idExamen, idPregunta) values";
 while(($row = $result->fetch_assoc())){

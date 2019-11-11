@@ -11,7 +11,7 @@ $dataResponse["enAplicacion"] = [];
 $dataResponse["aplicados"] = [];
 
 $query = "
-    select t5.idExamen,nomSeccion,t5.duracion,t5.fechaAplicacion,t5.fechaLimiteAplicacion, concat(nombre,' ', apellidoP) as nomProfesor
+    select distinct t5.idExamen,nomSeccion,t5.duracion,t5.fechaAplicacion,t5.fechaLimiteAplicacion, concat(nombre,' ', apellidoP) as nomProfesor
     from seccion t1
     inner join alumno_seccion t2
     on t1.idSeccion=t2.idSeccion
@@ -38,7 +38,7 @@ while (($row = $result->fetch_assoc())) {
 $result->free();
 
 $query = "
-    select t5.idExamen,nomSeccion,t5.duracion,t5.fechaAplicacion,t5.fechaLimiteAplicacion, concat(nombre, apellidoP) as nomProfesor
+    select distinct t5.idExamen,nomSeccion,t5.duracion,t5.fechaAplicacion,t5.fechaLimiteAplicacion, concat(nombre, apellidoP) as nomProfesor
     from seccion t1
     inner join alumno_seccion t2
     on t1.idSeccion=t2.idSeccion
@@ -67,7 +67,7 @@ while (($row = $result->fetch_assoc())) {
 $result->free();
 
 $query = "
-    select t5.idExamen,nomSeccion,t5.duracion,t5.fechaAplicacion,t5.fechaLimiteAplicacion, concat(nombre, apellidoP) as nomProfesor
+    select distinct t5.idExamen,nomSeccion,t5.duracion,t5.fechaAplicacion,t5.fechaLimiteAplicacion, concat(nombre, apellidoP) as nomProfesor
     from seccion t1
     inner join alumno_seccion t2
     on t1.idSeccion=t2.idSeccion
