@@ -236,6 +236,7 @@ begin
         insert into seccion(numTrabajador ,nomSeccion) values(numTrabajadorTemp, nomSeccionTemp);
     else
         set response = json_object("error", concat("la seccion con el nombre: ", nomSeccionTemp, ", ya se encuentra registrada"));
+        delete from profesor where numTrabajador=numTrabajadorTemp;
     end if;
     return response;
 end;
@@ -317,3 +318,14 @@ begin
 
     return response;
 end;
+
+
+-- select *
+-- from pregunta t1
+-- inner join examen t2
+-- on t2.idExamen=3
+-- inner join examen_pregunta t3
+-- on t3.idExamen=t2.idExamen
+-- where t1.idPregunta=t3.idPregunta;
+
+-- delete from historialRespuestas where idPregunta=1;
