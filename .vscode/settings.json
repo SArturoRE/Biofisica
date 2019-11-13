@@ -1,15 +1,14 @@
 {
     "sqltools.connections": [
         {
-            "database": "BiofisicaDB",
+            "database": "biofisicaDB",
             "dialect": "MariaDB",
             "isActive": false,
             "isConnected": false,
             "name": "BiofisicaDB",
-            "password": "15628311.xMariaDB",
             "port": 3306,
             "server": "localhost",
-            "username": "xDB"
+            "username": "root"
         }
     ]
 }
