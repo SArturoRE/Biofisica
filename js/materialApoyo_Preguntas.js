@@ -2,7 +2,7 @@ window.onload = function () {
     agregaPregunta();
     let tipoSesion = sessionStorage.getItem("tipoSesion");
     if (tipoSesion != "Profesor") {
-        location.href = "/";
+        location.href = ".";
     }
 }
 

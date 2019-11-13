@@ -10,7 +10,7 @@ window.onload = function () {
 function verificaSesion_itemsSesion() {
 
     if (sessionStorage.getItem("tipoSesion") == undefined) {
-        window.location.href = "/";
+        window.location.href = ".";
     }
 
     let tipoSesion = sessionStorage.getItem("tipoSesion");

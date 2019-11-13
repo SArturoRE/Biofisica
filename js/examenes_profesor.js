@@ -1,7 +1,7 @@
 window.addEventListener("load", function () {
     let tipoSesion = sessionStorage.getItem("tipoSesion");
     if (tipoSesion != "Profesor") {
-        location.href = "/";
+        location.href = ".";
     }
     getInfoExamenes();
 });

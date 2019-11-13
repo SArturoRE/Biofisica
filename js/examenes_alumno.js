@@ -1,7 +1,7 @@
 window.addEventListener("load", function () {
     let tipoSesion = sessionStorage.getItem("tipoSesion");
     if (tipoSesion != "Alumno") {
-        location.href = "/";
+        location.href = ".";
     }
     getInfoExamenes();
 });
@@ -157,7 +157,7 @@ function enviaRespuestas() {
             console.log(responseData);
             let numPreguntas = responseData["numPreguntas"];
             let numRespuestasCorrectas = responseData["numRespuestasCorrectas"];
-            respondeExamen_title.innerHTML = "<h1>" + numRespuestasCorrectas + "/" + numPreguntas + " Aciertos</h1>"
+            respondeExamen_title.innerHTML = "<h1>" + numRespuestasCorrectas + "." + numPreguntas + " Aciertos</h1>"
             preguntas_div.innerHTML = "";
         }
     }

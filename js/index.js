@@ -200,5 +200,5 @@ function agregaSesionUsuario(datos) {
 
 function cerrarSesionUsuario() {
     sessionStorage.removeItem("idSesion");
-    location.href = "/";
+    location.href = ".";
 }
