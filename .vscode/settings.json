@@ -10,6 +10,15 @@
             "port": 3306,
             "server": "localhost",
             "username": "xDB"
+        },
+        {
+            "askForPassword": false,
+            "database": "biofisicaDB",
+            "dialect": "MariaDB",
+            "name": "bio",
+            "port": 3306,
+            "server": "localhost",
+            "username": "root"
         }
     ]
 }

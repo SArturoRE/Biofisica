@@ -2,7 +2,7 @@
 
 function getConexionDB()
 {
-    $conexion = new mysqli("localhost", "xDB", "15628311.xMariaDB", "biofisicaDB");
+    $conexion = new mysqli("localhost", "root", "", "biofisicaDB");
 
     if ($conexion->connect_errno) {
 
